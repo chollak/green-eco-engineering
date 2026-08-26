@@ -25,7 +25,7 @@ export const company = {
   telegram: null,            // ← ссылка вида https://t.me/... если есть
   address: {
     ru: 'Ташкент, Янгихаётский район, МФЙ Файзли, ул. Райхон, 107',
-    uz: 'Toshkent, Yangihayot tumani, Fayzli MFY, Rayhon koʻchasi, 107'
+    uz: 'Toshkent, Yangihayot tumani, Fayzli MFY, Rayhon ko‘chasi, 107'
   },
   addressShort: {
     ru: 'Ташкент, Янгихаётский район',
@@ -64,7 +64,7 @@ export const commitments = [
   },
   {
     label: { ru: 'Выезд лаборатории', uz: 'Laboratoriya chiqishi' },
-    value: { ru: '24 ч по Ташкенту', uz: 'Toshkent boʻylab 24 soat' }
+    value: { ru: '24 ч по Ташкенту', uz: 'Toshkent bo‘ylab 24 soat' }
   },
   {
     label: { ru: 'Гарантия на работы', uz: 'Ishlarga kafolat' },
@@ -72,17 +72,17 @@ export const commitments = [
   },
   {
     label: { ru: 'Сдача объекта', uz: 'Obyektni topshirish' },
-    value: { ru: 'полный комплект ИД', uz: 'toʻliq ijroiya hujjatlari' }
+    value: { ru: 'полный комплект ИД', uz: 'to‘liq ijroiya hujjatlari' }
   }
 ]
 
 /** Технический паспорт компании — формат «параметр : значение». */
 export const passport = [
   { key: { ru: 'ИНН / STIR', uz: 'STIR' }, value: { ru: '303724307', uz: '303724307' } },
-  { key: { ru: 'Дата регистрации', uz: 'Roʻyxatdan oʻtgan sana' }, value: { ru: '14.01.2016', uz: '14.01.2016' } },
-  { key: { ru: 'Направлений работ', uz: 'Ish yoʻnalishlari' }, value: { ru: '17', uz: '17' } },
+  { key: { ru: 'Дата регистрации', uz: 'Ro‘yxatdan o‘tgan sana' }, value: { ru: '14.01.2016', uz: '14.01.2016' } },
+  { key: { ru: 'Направлений работ', uz: 'Ish yo‘nalishlari' }, value: { ru: '17', uz: '17' } },
   { key: { ru: 'Видов работ', uz: 'Ish turlari' }, value: { ru: '109', uz: '109' } },
-  { key: { ru: 'Электролаборатория', uz: 'Elektrolaboratoriya' }, value: { ru: 'собственная', uz: 'oʻzimizniki' } },
+  { key: { ru: 'Электролаборатория', uz: 'Elektrolaboratoriya' }, value: { ru: 'собственная', uz: 'o‘zimizniki' } },
   { key: { ru: 'Класс напряжения', uz: 'Kuchlanish sinfi' }, value: { ru: 'до 110 кВ', uz: '110 kV gacha' } },
   { key: { ru: 'Группы по электробезопасности', uz: 'Elektr xavfsizligi guruhlari' }, value: { ru: 'до V включительно', uz: 'V gacha' } },
   { key: { ru: 'Аварийная служба', uz: 'Avariya xizmati' }, value: { ru: '24/7', uz: '24/7' } },
@@ -101,8 +101,8 @@ export const standards = [
 
 /** Четыре факта с единицами измерения для полосы статистики. */
 export const stats = [
-  { value: '2016', unit: null, label: { ru: 'год регистрации', uz: 'roʻyxatdan oʻtgan yil' } },
-  { value: '17', unit: null, label: { ru: 'направлений работ', uz: 'ish yoʻnalishi' } },
+  { value: '2016', unit: null, label: { ru: 'год регистрации', uz: 'ro‘yxatdan o‘tgan yil' } },
+  { value: '17', unit: null, label: { ru: 'направлений работ', uz: 'ish yo‘nalishi' } },
   { value: '109', unit: null, label: { ru: 'видов работ в каталоге', uz: 'katalogdagi ish turi' } },
   { value: '110', unit: 'кВ', label: { ru: 'максимальный класс напряжения', uz: 'maksimal kuchlanish sinfi' } }
 ]
@@ -111,15 +111,15 @@ export const stats = [
 export const industries = [
   {
     title: { ru: 'Производство и цеха', uz: 'Ishlab chiqarish va sexlar' },
-    note: { ru: 'силовые сети, шинопроводы, приводы, крановое хозяйство', uz: 'kuch tarmoqlari, shinoprovodlar, yuritmalar, kran xoʻjaligi' }
+    note: { ru: 'силовые сети, шинопроводы, приводы, крановое хозяйство', uz: 'kuch tarmoqlari, shinoprovodlar, yuritmalar, kran xo‘jaligi' }
   },
   {
     title: { ru: 'Склады и логистика', uz: 'Omborlar va logistika' },
-    note: { ru: 'освещение, пожарная сигнализация, видеонаблюдение', uz: 'yoritish, yongʻin signalizatsiyasi, videokuzatuv' }
+    note: { ru: 'освещение, пожарная сигнализация, видеонаблюдение', uz: 'yoritish, yong‘in signalizatsiyasi, videokuzatuv' }
   },
   {
     title: { ru: 'Торговые объекты', uz: 'Savdo obyektlari' },
-    note: { ru: 'ВРУ, освещение, СОУЭ, резервное питание', uz: 'VRU, yoritish, SOUE, zaxira taʼminot' }
+    note: { ru: 'ВРУ, освещение, СОУЭ, резервное питание', uz: 'VRU, yoritish, SOUE, zaxira ta’minot' }
   },
   {
     title: { ru: 'Офисы и бизнес-центры', uz: 'Ofis va biznes markazlar' },
@@ -127,18 +127,18 @@ export const industries = [
   },
   {
     title: { ru: 'Стройплощадки', uz: 'Qurilish maydonchalari' },
-    note: { ru: 'временное электроснабжение, щиты, заземление', uz: 'vaqtinchalik elektr taʼminoti, shchitlar, yerga ulash' }
+    note: { ru: 'временное электроснабжение, щиты, заземление', uz: 'vaqtinchalik elektr ta’minoti, shchitlar, yerga ulash' }
   },
   {
     title: { ru: 'Объекты энергетики', uz: 'Energetika obyektlari' },
     note: { ru: 'ТП и КТП, ячейки, релейная защита, испытания', uz: 'TP va KTP, yacheykalar, rele himoyasi, sinovlar' }
   },
   {
-    title: { ru: 'АЗС и топливные объекты', uz: 'Yoqilgʻi quyish shoxobchalari' },
+    title: { ru: 'АЗС и топливные объекты', uz: 'Yoqilg‘i quyish shoxobchalari' },
     note: { ru: 'взрывозащита, заземление, молниезащита, ПБ', uz: 'portlashdan himoya, yerga ulash, chaqmoqdan himoya' }
   },
   {
     title: { ru: 'Медицинские учреждения', uz: 'Tibbiyot muassasalari' },
-    note: { ru: 'резервное питание, УЗО, контроль изоляции', uz: 'zaxira taʼminot, UZO, izolyatsiya nazorati' }
+    note: { ru: 'резервное питание, УЗО, контроль изоляции', uz: 'zaxira ta’minot, UZO, izolyatsiya nazorati' }
   }
 ]

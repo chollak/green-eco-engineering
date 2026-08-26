@@ -1,47 +1,53 @@
 #!/usr/bin/env node
 /**
- * Приводит узбекские апострофы к нормативным символам.
+ * Приводит узбекские апострофы к единому виду: U+02BB → U+2018, U+02BC → U+2019.
  *
- *   oʻ / gʻ           → U+02BB  ʻ (modifier letter turned comma)
- *   taʼmir, maʼlumot  → U+02BC  ʼ (modifier letter apostrophe)
+ * ПОЧЕМУ НЕ ОРФОГРАФИЧЕСКИ ВЕРНЫЕ U+02BB / U+02BC.
+ * Замерено в браузере на IBM Plex Sans (кегль 40px, canvas measureText):
  *
- * Типографские кавычки U+2018/U+2019 в этой роли — распространённая ошибка:
- * они кавычки, а не буквенные знаки. Обе гарнитуры проекта (IBM Plex Sans и Mono)
- * содержат U+02BB и U+02BC — проверено разбором cmap.
+ *   U+02BB ʻ — 24.00px   (шире буквы «o», у которой 22.40px)
+ *   U+2018 ‘ — 10.92px
  *
- * Русские строки проекта апострофов не содержат (кавычки — «ёлочки»),
- * поэтому замена по файлу безопасна.
+ * Глиф U+02BB в этой гарнитуре нарисован как модификатор с большими боковыми
+ * свисаниями: «To‘liq» набирается как «To ʻ liq» — читается как опечатка.
+ * U+2018 в Plex имеет форму перевёрнутой запятой, то есть ровно ту, которую
+ * ожидает узбекский читатель, и набирается плотно.
+ * Если гарнитура сменится — перепроверить замером и, если новый шрифт рисует
+ * U+02BB нормально, вернуть орфографически верный вариант.
+ *
+ * ЗАМЕНЯЮТСЯ ТОЛЬКО ЭТИ ДВА СИМВОЛА. Прямую кавычку и обратный апостроф
+ * трогать нельзя: первая — терминатор строки JS, второй — шаблонный литерал.
  *
  * Запуск: node scripts-normalize-apostrophes.mjs
  */
-import { readFile, writeFile } from 'node:fs/promises'
-import { readdir } from 'node:fs/promises'
+import { readFile, writeFile, readdir } from 'node:fs/promises'
 import { join } from 'node:path'
 
 const TARGETS = ['src/data', 'src/templates']
-const LEFT_QUOTE = '‘'
-const RIGHT_QUOTE = '’'
-const TURNED_COMMA = 'ʻ'
-const MODIFIER_APOSTROPHE = 'ʼ'
+const RULES = [
+  { from: 'ʻ', to: '‘', label: 'ʻ→‘' },
+  { from: 'ʼ', to: '’', label: 'ʼ→’' }
+]
 
 let changed = 0
 
 for (const dir of TARGETS) {
-  const files = (await readdir(dir)).filter(name => name.endsWith('.mjs'))
-
-  for (const name of files) {
+  for (const name of (await readdir(dir)).filter(file => file.endsWith('.mjs'))) {
     const path = join(dir, name)
     const source = await readFile(path, 'utf8')
+    let fixed = source
+    const report = []
 
-    const fixed = source
-      .split(LEFT_QUOTE).join(TURNED_COMMA)
-      .split(RIGHT_QUOTE).join(MODIFIER_APOSTROPHE)
+    for (const rule of RULES) {
+      const count = fixed.split(rule.from).length - 1
+      if (!count) continue
+      fixed = fixed.split(rule.from).join(rule.to)
+      report.push(`${rule.label} ${count}`)
+    }
 
     if (fixed !== source) {
       await writeFile(path, fixed, 'utf8')
-      const left = source.split(LEFT_QUOTE).length - 1
-      const right = source.split(RIGHT_QUOTE).length - 1
-      console.log(`${path}: ‘→ʻ ${left}, ’→ʼ ${right}`)
+      console.log(`${path}: ${report.join(', ')}`)
       changed++
     }
   }

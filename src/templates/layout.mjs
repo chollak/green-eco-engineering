@@ -113,7 +113,7 @@ function footer (base) {
         </div>
         ${el('p', 't-small', {
           ru: 'Электромонтаж, пусконаладка, электролабораторные испытания, пожарная безопасность и автоматика для промышленных и коммерческих объектов Узбекистана.',
-          uz: 'Oʻzbekistonning sanoat va tijorat obyektlari uchun elektromontaj, ishga tushirish, elektrolaboratoriya sinovlari, yongʻin xavfsizligi va avtomatika.'
+          uz: 'O‘zbekistonning sanoat va tijorat obyektlari uchun elektromontaj, ishga tushirish, elektrolaboratoriya sinovlari, yong‘in xavfsizligi va avtomatika.'
         })}
         <dl class="plate" style="margin-top:var(--s4)">
           <div class="plate__row"><dt class="plate__key">ИНН / STIR</dt><dd class="plate__val">${company.taxId}</dd></div>
@@ -169,7 +169,7 @@ ${ld.map(item => `<script type="application/ld+json">${JSON.stringify(item)}</sc
 <body${bodyClass ? ` class="${bodyClass}"` : ''}
   data-title-ru="${esc(title.ru)}" data-title-uz="${esc(title.uz)}"
   data-desc-ru="${esc(description.ru)}" data-desc-uz="${esc(description.uz)}">
-<a class="skip-link" href="#main" ${bi({ ru: 'Перейти к содержанию', uz: 'Kontentga oʻtish' })}>Перейти к содержанию</a>
+<a class="skip-link" href="#main" ${bi({ ru: 'Перейти к содержанию', uz: 'Kontentga o‘tish' })}>Перейти к содержанию</a>
 ${header(base)}
 <main id="main">
 ${body}

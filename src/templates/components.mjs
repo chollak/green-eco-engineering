@@ -85,9 +85,9 @@ export function leadForm () {
       <input type="tel" id="lead-phone" name="phone" autocomplete="tel" required placeholder="+998 __ ___ __ __">
     </div>
     <div class="field">
-      ${el('label', 'field__label', { ru: 'Направление работ', uz: 'Ish yoʻnalishi' }, 'for="lead-service"')}
+      ${el('label', 'field__label', { ru: 'Направление работ', uz: 'Ish yo‘nalishi' }, 'for="lead-service"')}
       <select id="lead-service" name="service" data-service-select>
-        <option value="" ${bi({ ru: 'Выберите направление', uz: 'Yoʻnalishni tanlang' })}>Выберите направление</option>
+        <option value="" ${bi({ ru: 'Выберите направление', uz: 'Yo‘nalishni tanlang' })}>Выберите направление</option>
         ${options}
       </select>
     </div>
@@ -103,11 +103,11 @@ export function leadForm () {
   <button type="submit" class="btn btn--primary btn--block" ${bi({ ru: 'Отправить заявку', uz: 'Ariza yuborish' })}>Отправить заявку</button>
   <p class="form__ok" data-form-success hidden role="status" ${bi({
     ru: 'Заявка принята. Инженер свяжется с вами в рабочее время, по аварийным заявкам — сразу.',
-    uz: 'Ariza qabul qilindi. Muhandis ish vaqtida bogʻlanadi, avariya arizalari boʻyicha — darhol.'
+    uz: 'Ariza qabul qilindi. Muhandis ish vaqtida bog‘lanadi, avariya arizalari bo‘yicha — darhol.'
   })}>Заявка принята. Инженер свяжется с вами в рабочее время, по аварийным заявкам — сразу.</p>
   ${el('p', 'form__note', {
     ru: 'Отправляя форму, вы соглашаетесь на обработку контактных данных для ответа на заявку. Рассылок не делаем.',
-    uz: 'Formani yuborish orqali arizaga javob berish uchun kontakt maʼlumotlaringizni qayta ishlashga rozilik bildirasiz. Axborot tarqatmaymiz.'
+    uz: 'Formani yuborish orqali arizaga javob berish uchun kontakt ma’lumotlaringizni qayta ishlashga rozilik bildirasiz. Axborot tarqatmaymiz.'
   })}
 </form>`
 }
@@ -189,12 +189,12 @@ export function sldLegend () {
     { cls: 'swatch--l1', text: { ru: 'L1 — коричневый', uz: 'L1 — jigarrang' } },
     { cls: 'swatch--l2', text: { ru: 'L2 — чёрный', uz: 'L2 — qora' } },
     { cls: 'swatch--l3', text: { ru: 'L3 — серый', uz: 'L3 — kulrang' } },
-    { cls: 'swatch--n', text: { ru: 'N — синий', uz: 'N — koʻk' } },
+    { cls: 'swatch--n', text: { ru: 'N — синий', uz: 'N — ko‘k' } },
     { cls: 'swatch--pe', text: { ru: 'PE — жёлто-зелёный', uz: 'PE — sariq-yashil' } }
   ]
 
   return `<div class="sld-legend">
-    <span class="label" ${bi({ ru: 'Маркировка жил по IEC 60446:', uz: 'IEC 60446 boʻyicha tomirlar belgilanishi:' })}>Маркировка жил по IEC 60446:</span>
+    <span class="label" ${bi({ ru: 'Маркировка жил по IEC 60446:', uz: 'IEC 60446 bo‘yicha tomirlar belgilanishi:' })}>Маркировка жил по IEC 60446:</span>
     ${items.map(item => `<span class="sld-legend__item">
       <span class="sld-legend__swatch ${item.cls}"></span><span ${bi(item.text)}>${esc(item.text.ru)}</span>
     </span>`).join('')}

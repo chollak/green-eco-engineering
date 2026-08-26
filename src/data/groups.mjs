@@ -6,7 +6,7 @@ export const groups = [
   {
     id: 'power',
     num: 'A',
-    title: { ru: 'Электроснабжение и монтаж', uz: 'Elektr taʼminoti va montaj' },
+    title: { ru: 'Электроснабжение и монтаж', uz: 'Elektr ta’minoti va montaj' },
     lead: {
       ru: 'Довести питание до объекта и развести его внутри: от высоковольтной подстанции до последней розетки в цехе.',
       uz: 'Obyektga quvvat yetkazish va uni ichkarida taqsimlash: yuqori kuchlanishli podstansiyadan sexdagi oxirgi rozetkagacha.'
@@ -41,7 +41,7 @@ export const groups = [
     title: { ru: 'Инженерные системы объекта', uz: 'Obyektning muhandislik tizimlari' },
     lead: {
       ru: 'Всё, что объект получает поверх силовой части: защита от пожара, автоматика, связь и свет.',
-      uz: 'Obyekt kuch qismidan tashqari oladigan hamma narsa: yongʻindan himoya, avtomatika, aloqa va yorugʻlik.'
+      uz: 'Obyekt kuch qismidan tashqari oladigan hamma narsa: yong‘indan himoya, avtomatika, aloqa va yorug‘lik.'
     },
     slugs: [
       'pozharnaya-bezopasnost',
@@ -56,7 +56,7 @@ export const groups = [
     title: { ru: 'Эксплуатация и энергоэффективность', uz: 'Ekspluatatsiya va energiya samaradorligi' },
     lead: {
       ru: 'Держать электрохозяйство в рабочем состоянии и находить, где предприятие теряет деньги.',
-      uz: 'Elektr xoʻjaligini ishchi holatda saqlash va korxona qayerda pul yoʻqotayotganini topish.'
+      uz: 'Elektr xo‘jaligini ishchi holatda saqlash va korxona qayerda pul yo‘qotayotganini topish.'
     },
     slugs: [
       'tehnicheskoe-obsluzhivanie',

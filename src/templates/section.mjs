@@ -30,10 +30,10 @@ function asideCard (section, extra) {
   ${el('h2', 't-h3', { ru: 'Посчитать объём работ', uz: 'Ish hajmini hisoblash' })}
   ${el('p', 't-small', {
     ru: `Пришлите ТЗ, однолинейную схему или просто опишите объект — вернём смету по направлению «${section.title.ru}» с разбивкой по позициям.`,
-    uz: `TT, bir chiziqli sxema yuboring yoki obyektni tavsiflang — «${section.title.uz}» yoʻnalishi boʻyicha pozitsiyalarga boʻlingan smeta qaytaramiz.`
+    uz: `TT, bir chiziqli sxema yuboring yoki obyektni tavsiflang — «${section.title.uz}» yo‘nalishi bo‘yicha pozitsiyalarga bo‘lingan smeta qaytaramiz.`
   })}
   <a class="btn btn--primary btn--block" href="#contact">
-    <span ${bi({ ru: 'Запросить смету', uz: 'Smeta soʻrash' })}>Запросить смету</span>
+    <span ${bi({ ru: 'Запросить смету', uz: 'Smeta so‘rash' })}>Запросить смету</span>
     ${icon('arrowRight', { size: 18, cls: 'icon icon--arrow' })}
   </a>
   <a class="btn btn--ghost btn--block" href="tel:${company.phone}">
@@ -41,7 +41,7 @@ function asideCard (section, extra) {
   </a>
   ${plate([
     { key: { ru: 'Видов работ', uz: 'Ish turlari' }, value: { ru: String(section.services.length), uz: String(section.services.length) } },
-    { key: { ru: 'Шифр раздела', uz: 'Boʻlim shifri' }, value: { ru: section.num, uz: section.num } },
+    { key: { ru: 'Шифр раздела', uz: 'Bo‘lim shifri' }, value: { ru: section.num, uz: section.num } },
     { key: { ru: 'Смета', uz: 'Smeta' }, value: { ru: '1–2 рабочих дня', uz: '1–2 ish kuni' } },
     { key: { ru: 'География', uz: 'Geografiya' }, value: company.addressShort }
   ])}
@@ -60,7 +60,7 @@ function neighbours (current) {
   <div class="page stack">
     <div>
       ${rubric(group ? group.title : { ru: 'Каталог', uz: 'Katalog' })}
-      ${el('h2', 't-h2', { ru: 'Все направления работ', uz: 'Barcha ish yoʻnalishlari' }, 'id="others-h"')}
+      ${el('h2', 't-h2', { ru: 'Все направления работ', uz: 'Barcha ish yo‘nalishlari' }, 'id="others-h"')}
     </div>
     <nav class="nav-sections" aria-label="Другие направления">${items}</nav>
   </div>
@@ -117,13 +117,13 @@ export function sectionPage (section) {
     </nav>
     <p class="stamp" ${bi({
       ru: `РАЗДЕЛ ${section.num} · ${section.services.length} ВИДОВ РАБОТ · ${company.legalName.ru} · ИНН ${company.taxId}`,
-      uz: `${section.num}-BOʻLIM · ${section.services.length} TA ISH TURI · ${company.legalName.uz} · STIR ${company.taxId}`
+      uz: `${section.num}-BO‘LIM · ${section.services.length} TA ISH TURI · ${company.legalName.uz} · STIR ${company.taxId}`
     })}>РАЗДЕЛ ${section.num} · ${section.services.length} ВИДОВ РАБОТ · ${esc(company.legalName.ru)} · ИНН ${company.taxId}</p>
     ${el('h1', 't-display', section.title, 'id="doc-h"')}
     ${el('p', 't-lead', section.intro)}
     <div class="hero__actions">
       <a class="btn btn--primary" href="#contact">
-        <span ${bi({ ru: 'Запросить смету', uz: 'Smeta soʻrash' })}>Запросить смету</span>
+        <span ${bi({ ru: 'Запросить смету', uz: 'Smeta so‘rash' })}>Запросить смету</span>
         ${icon('arrowRight', { size: 18, cls: 'icon icon--arrow' })}
       </a>
       <a class="btn btn--ghost" href="tel:${company.phone}">
@@ -138,7 +138,7 @@ export function sectionPage (section) {
     <div class="stack stack--wide">
       <div>
         ${rubric({ ru: 'Состав работ', uz: 'Ishlar tarkibi' })}
-        ${el('h2', 't-h2', { ru: 'Что входит в направление', uz: 'Yoʻnalishga nimalar kiradi' }, 'id="scope-h"')}
+        ${el('h2', 't-h2', { ru: 'Что входит в направление', uz: 'Yo‘nalishga nimalar kiradi' }, 'id="scope-h"')}
       </div>
       ${servicesBlock(section)}
 
@@ -161,8 +161,8 @@ export function sectionPage (section) {
 ${faqItems.length ? `<section class="section surface--sunk" aria-labelledby="sfaq-h">
   <div class="page stack">
     <div>
-      ${rubric({ ru: 'Вопросы по направлению', uz: 'Yoʻnalish boʻyicha savollar' })}
-      ${el('h2', 't-h2', { ru: 'Что спрашивают до заказа', uz: 'Buyurtmadan oldin nima soʻrashadi' }, 'id="sfaq-h"')}
+      ${rubric({ ru: 'Вопросы по направлению', uz: 'Yo‘nalish bo‘yicha savollar' })}
+      ${el('h2', 't-h2', { ru: 'Что спрашивают до заказа', uz: 'Buyurtmadan oldin nima so‘rashadi' }, 'id="sfaq-h"')}
     </div>
     ${faqList(faqItems, `faq-${section.slug}`)}
   </div>

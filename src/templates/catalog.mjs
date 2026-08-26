@@ -24,7 +24,7 @@ function groupBlock (group) {
     </li>`).join('')}</ol>
     <span class="dir-tile__foot">
       <span class="label" ${bi({ ru: `${section.services.length} видов работ`, uz: `${section.services.length} ta ish turi` })}>${section.services.length} видов работ</span>
-      <a href="${section.slug}.html" class="label" ${bi({ ru: 'К разделу', uz: 'Boʻlimga' })}>К разделу</a>
+      <a href="${section.slug}.html" class="label" ${bi({ ru: 'К разделу', uz: 'Bo‘limga' })}>К разделу</a>
     </span>
   </article>`).join('')
 
@@ -75,15 +75,15 @@ export function catalogPage () {
     ${el('h1', 't-display', { ru: 'Каталог работ', uz: 'Ishlar katalogi' }, 'id="cat-h"')}
     ${el('p', 't-lead', {
       ru: 'Полный перечень: 17 направлений, 109 видов работ. Сгруппированы по этапу жизни объекта — от ввода питания до эксплуатации, а не по алфавиту.',
-      uz: 'Toʻliq roʻyxat: 17 yoʻnalish, 109 ta ish turi. Alifbo boʻyicha emas, obyekt hayoti bosqichi boʻyicha guruhlangan — quvvat kiritishdan ekspluatatsiyagacha.'
+      uz: 'To‘liq ro‘yxat: 17 yo‘nalish, 109 ta ish turi. Alifbo bo‘yicha emas, obyekt hayoti bosqichi bo‘yicha guruhlangan — quvvat kiritishdan ekspluatatsiyagacha.'
     })}
     <div class="filter">
-      <label class="visually-hidden" for="filter-input" ${bi({ ru: 'Поиск по каталогу', uz: 'Katalog boʻyicha qidiruv' })}>Поиск по каталогу</label>
+      <label class="visually-hidden" for="filter-input" ${bi({ ru: 'Поиск по каталогу', uz: 'Katalog bo‘yicha qidiruv' })}>Поиск по каталогу</label>
       <input type="search" id="filter-input" class="filter__input" data-filter-input
         data-ph-ru="Поиск: заземление, ВРУ, муфта, УЗО…" data-ph-uz="Qidiruv: yerga ulash, VRU, mufta, UZO…"
         placeholder="Поиск: заземление, ВРУ, муфта, УЗО…">
       <div class="filter__tags">
-        <button type="button" class="filter__tag" data-filter="all" aria-pressed="true" ${bi({ ru: 'Все направления', uz: 'Barcha yoʻnalishlar' })}>Все направления</button>
+        <button type="button" class="filter__tag" data-filter="all" aria-pressed="true" ${bi({ ru: 'Все направления', uz: 'Barcha yo‘nalishlar' })}>Все направления</button>
         ${tags}
       </div>
       <p class="filter__count" data-filter-count aria-live="polite"></p>
@@ -99,11 +99,11 @@ ${contactBand('../')}`
     base: '../',
     title: {
       ru: 'Каталог работ: 17 направлений, 109 видов — GREEN ECO ENGINEERING',
-      uz: 'Ishlar katalogi: 17 yoʻnalish, 109 tur — GREEN ECO ENGINEERING'
+      uz: 'Ishlar katalogi: 17 yo‘nalish, 109 tur — GREEN ECO ENGINEERING'
     },
     description: {
       ru: 'Полный каталог электромонтажных работ: монтаж и высоковольтные работы, пусконаладка, электролаборатория, пожарная безопасность, автоматика, обслуживание. 109 видов работ.',
-      uz: 'Elektromontaj ishlarining toʻliq katalogi: montaj va yuqori kuchlanish, ishga tushirish, elektrolaboratoriya, yongʻin xavfsizligi, avtomatika, xizmat koʻrsatish. 109 ta ish turi.'
+      uz: 'Elektromontaj ishlarining to‘liq katalogi: montaj va yuqori kuchlanish, ishga tushirish, elektrolaboratoriya, yong‘in xavfsizligi, avtomatika, xizmat ko‘rsatish. 109 ta ish turi.'
     },
     canonical: `${company.baseUrl}services/index.html`,
     jsonLd,

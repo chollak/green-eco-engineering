@@ -39,7 +39,7 @@ function hero () {
     <div>
       <p class="stamp" ${bi({
         ru: `${company.legalName.ru} · ИНН ${company.taxId} · РЕГ. ${company.registered} · ТАШКЕНТ`,
-        uz: `${company.legalName.uz} · STIR ${company.taxId} · ROʻYXAT ${company.registered} · TOSHKENT`
+        uz: `${company.legalName.uz} · STIR ${company.taxId} · RO‘YXAT ${company.registered} · TOSHKENT`
       })}>${esc(company.legalName.ru)} · ИНН ${company.taxId} · РЕГ. ${company.registered} · ТАШКЕНТ</p>
       <h1 class="t-display" id="hero-h" ${bi({
         ru: `${content.hero.headline.ru} ${content.hero.headlineAccent.ru}`,
@@ -77,12 +77,12 @@ function passportSection () {
     <div class="stack stack--wide">
       <div>
         ${rubric({ ru: 'Технический паспорт', uz: 'Texnik pasport' })}
-        ${el('h2', 't-h2', { ru: 'Проверяемые данные компании', uz: 'Kompaniyaning tekshiriladigan maʼlumotlari' }, 'id="plate-h"')}
+        ${el('h2', 't-h2', { ru: 'Проверяемые данные компании', uz: 'Kompaniyaning tekshiriladigan ma’lumotlari' }, 'id="plate-h"')}
       </div>
       <div data-reveal>${passportPlate()}</div>
       <div class="stat-strip" data-reveal>${statItems}</div>
       <div>
-        ${el('p', 'label', { ru: 'Работаем по нормам', uz: 'Meʼyorlar boʻyicha ishlaymiz' })}
+        ${el('p', 'label', { ru: 'Работаем по нормам', uz: 'Me’yorlar bo‘yicha ishlaymiz' })}
         <div style="margin-top:var(--s2)">${standardChips()}</div>
       </div>
     </div>
@@ -121,17 +121,17 @@ function catalogSection () {
     <div class="layout-b">
       <div>
         ${rubric({ ru: 'Каталог · 109 видов работ', uz: 'Katalog · 109 ta ish turi' })}
-        ${el('h2', 't-h2', { ru: '17 направлений под одним договором', uz: 'Bitta shartnoma ostida 17 yoʻnalish' }, 'id="catalog-h"')}
+        ${el('h2', 't-h2', { ru: '17 направлений под одним договором', uz: 'Bitta shartnoma ostida 17 yo‘nalish' }, 'id="catalog-h"')}
       </div>
       ${el('p', 't-lead', {
         ru: 'Шесть основных направлений — крупным планом. Остальные одиннадцать закрывают смежные системы объекта: от кранового хозяйства до слаботочки.',
-        uz: 'Oltita asosiy yoʻnalish — yiriklashtirilgan. Qolgan oʻn bittasi obyektning qoʻshni tizimlarini qamrab oladi: kran xoʻjaligidan kuchsiz tok tizimlarigacha.'
+        uz: 'Oltita asosiy yo‘nalish — yiriklashtirilgan. Qolgan o‘n bittasi obyektning qo‘shni tizimlarini qamrab oladi: kran xo‘jaligidan kuchsiz tok tizimlarigacha.'
       })}
     </div>
     <div class="dir-tiles" data-reveal>${tiles}</div>
     <div class="dir-rows" data-reveal>${rows}</div>
     <p><a class="btn btn--ghost" href="services/index.html">
-      <span ${bi({ ru: 'Все 109 видов работ одним списком', uz: 'Barcha 109 ta ish turi bitta roʻyxatda' })}>Все 109 видов работ одним списком</span>
+      <span ${bi({ ru: 'Все 109 видов работ одним списком', uz: 'Barcha 109 ta ish turi bitta ro‘yxatda' })}>Все 109 видов работ одним списком</span>
       ${icon('arrowRight', { size: 18, cls: 'icon icon--arrow' })}
     </a></p>
   </div>
@@ -144,10 +144,10 @@ const CHAIN = [
   { stage: { ru: 'Ввод', uz: 'Kirish' }, slug: 'vysokovoltnye-raboty', note: { ru: '6/10 кВ, ТП и КТП, ячейки, силовые трансформаторы', uz: '6/10 kV, TP va KTP, yacheykalar, kuch transformatorlari' } },
   { stage: { ru: 'Распределение', uz: 'Taqsimlash' }, slug: 'elektromontazhnye-raboty', note: { ru: 'ВРУ и ГРЩ, шинопроводы, внутренние и наружные сети', uz: 'VRU va GRSH, shinoprovodlar, ichki va tashqi tarmoqlar' } },
   { stage: { ru: 'Трассы', uz: 'Trassalar' }, slug: 'kabelnye-seti', note: { ru: 'силовые и контрольные кабели, муфты, поиск повреждений', uz: 'kuch va nazorat kabellari, muftalar, shikastlanishlarni topish' } },
-  { stage: { ru: 'Потребители', uz: 'Isteʼmolchilar' }, slug: 'osveshchenie', note: { ru: 'освещение, электродвигатели, крановое хозяйство', uz: 'yoritish, elektr dvigatellar, kran xoʻjaligi' } },
+  { stage: { ru: 'Потребители', uz: 'Iste’molchilar' }, slug: 'osveshchenie', note: { ru: 'освещение, электродвигатели, крановое хозяйство', uz: 'yoritish, elektr dvigatellar, kran xo‘jaligi' } },
   { stage: { ru: 'Резерв', uz: 'Zaxira' }, slug: 'rezervnoe-elektrosnabzhenie', note: { ru: 'ДГУ, ИБП, АВР и солнечные электростанции', uz: 'DGU, UPS, AVR va quyosh elektr stansiyalari' } },
   { stage: { ru: 'Управление', uz: 'Boshqaruv' }, slug: 'avtomatika-i-upravlenie', note: { ru: 'шкафы управления, контроллеры, HMI-панели', uz: 'boshqaruv shkaflari, kontrollerlar, HMI panellar' } },
-  { stage: { ru: 'Безопасность', uz: 'Xavfsizlik' }, slug: 'pozharnaya-bezopasnost', note: { ru: 'пожарная сигнализация, СОУЭ, слаботочные системы', uz: 'yongʻin signalizatsiyasi, SOUE, kuchsiz tok tizimlari' } },
+  { stage: { ru: 'Безопасность', uz: 'Xavfsizlik' }, slug: 'pozharnaya-bezopasnost', note: { ru: 'пожарная сигнализация, СОУЭ, слаботочные системы', uz: 'yong‘in signalizatsiyasi, SOUE, kuchsiz tok tizimlari' } },
   { stage: { ru: 'Запуск', uz: 'Ishga tushirish' }, slug: 'puskonaladochnye-raboty', note: { ru: 'наладка, уставки защит, испытания, ввод в эксплуатацию', uz: 'sozlash, himoya ustavkalari, sinovlar, ekspluatatsiyaga topshirish' } },
   { stage: { ru: 'Протоколы', uz: 'Bayonnomalar' }, slug: 'elektrolaboratoriya', note: { ru: 'изоляция, заземление, петля «фаза-ноль», прогрузка автоматов', uz: 'izolyatsiya, yerga ulash, «faza-nol» halqasi, avtomatlarni yuklash' } },
   { stage: { ru: 'Эксплуатация', uz: 'Ekspluatatsiya' }, slug: 'tehnicheskoe-obsluzhivanie', note: { ru: 'плановое и аварийное обслуживание, энергоаудит', uz: 'rejali va avariya xizmati, energoaudit' } }
@@ -174,7 +174,7 @@ function chainSection () {
         ${el('h2', 't-h2', { ru: 'От ввода 10 кВ до протокола испытаний', uz: '10 kV kirishdan sinov bayonnomasigacha' }, 'id="chain-h"')}
         ${el('p', 't-lead', {
           ru: 'Направления перечислены не по алфавиту, а по движению энергии на объекте. Порядок сам объясняет, зачем подрядчику 17 направлений.',
-          uz: 'Yoʻnalishlar alifbo boʻyicha emas, obyektdagi energiya harakati boʻyicha tartiblangan. Tartibning oʻzi pudratchiga nega 17 yoʻnalish kerakligini tushuntiradi.'
+          uz: 'Yo‘nalishlar alifbo bo‘yicha emas, obyektdagi energiya harakati bo‘yicha tartiblangan. Tartibning o‘zi pudratchiga nega 17 yo‘nalish kerakligini tushuntiradi.'
         })}
       </div>
       <div class="sld" data-reveal>
@@ -199,7 +199,7 @@ const LAB_GROUPS = [
     items: [3]
   },
   {
-    title: { ru: 'Документы по результатам', uz: 'Natijalar boʻyicha hujjatlar' },
+    title: { ru: 'Документы по результатам', uz: 'Natijalar bo‘yicha hujjatlar' },
     items: [6]
   }
 ]
@@ -220,12 +220,12 @@ function labSection () {
   <div class="page stack stack--wide">
     <div class="layout-b">
       <div>
-        ${rubric({ ru: 'Раздел 03 · Электролаборатория', uz: '03-boʻlim · Elektrolaboratoriya' })}
-        ${el('h2', 't-h2', { ru: 'Протоколы выдаём сами, без субподряда', uz: 'Bayonnomalarni oʻzimiz beramiz, subpudratsiz' }, 'id="lab-h"')}
+        ${rubric({ ru: 'Раздел 03 · Электролаборатория', uz: '03-bo‘lim · Elektrolaboratoriya' })}
+        ${el('h2', 't-h2', { ru: 'Протоколы выдаём сами, без субподряда', uz: 'Bayonnomalarni o‘zimiz beramiz, subpudratsiz' }, 'id="lab-h"')}
       </div>
       ${el('p', 't-lead', {
         ru: 'Наличие собственной лаборатории — первый вопрос главного энергетика. Замеры, испытания и оформление протоколов делает наша бригада, сроки не зависят от чужой очереди.',
-        uz: 'Oʻz laboratoriyasining borligi — bosh energetikning birinchi savoli. Oʻlchov, sinov va bayonnomalarni rasmiylashtirishni bizning brigadamiz bajaradi, muddatlar begona navbatga bogʻliq emas.'
+        uz: 'O‘z laboratoriyasining borligi — bosh energetikning birinchi savoli. O‘lchov, sinov va bayonnomalarni rasmiylashtirishni bizning brigadamiz bajaradi, muddatlar begona navbatga bog‘liq emas.'
       })}
     </div>
     <div class="panel panel--3" data-reveal>${modules}</div>
@@ -233,7 +233,7 @@ function labSection () {
       `<li>${icon('check', { size: 18, cls: 'icon' })}<span ${bi(item)}>${esc(item.ru)}</span></li>`
     ).join('')}</ul>
     <p><a class="btn btn--ghost" href="services/elektrolaboratoriya.html">
-      <span ${bi({ ru: 'Состав испытаний и измерений', uz: 'Sinov va oʻlchovlar tarkibi' })}>Состав испытаний и измерений</span>
+      <span ${bi({ ru: 'Состав испытаний и измерений', uz: 'Sinov va o‘lchovlar tarkibi' })}>Состав испытаний и измерений</span>
       ${icon('arrowRight', { size: 18, cls: 'icon icon--arrow' })}
     </a></p>
   </div>
@@ -287,7 +287,7 @@ function distributionSection () {
     <div class="stack">
       <div>
         ${rubric({ ru: 'Распределение работ', uz: 'Ishlar taqsimoti' })}
-        ${el('h2', 't-h2', { ru: 'Сколько видов работ в каждом направлении', uz: 'Har bir yoʻnalishda nechta ish turi bor' }, 'id="dist-h"')}
+        ${el('h2', 't-h2', { ru: 'Сколько видов работ в каждом направлении', uz: 'Har bir yo‘nalishda nechta ish turi bor' }, 'id="dist-h"')}
       </div>
       <div class="ruler" aria-hidden="true"></div>
       <div class="bars">${rows}</div>
@@ -331,9 +331,9 @@ function credentialsSection () {
 
   // Реквизиты для договора: банковский блок появится, когда клиент заполнит company.bank
   const requisites = [
-    { key: { ru: 'Полное наименование', uz: 'Toʻliq nomi' }, value: company.legalName },
+    { key: { ru: 'Полное наименование', uz: 'To‘liq nomi' }, value: company.legalName },
     { key: { ru: 'ИНН / STIR', uz: 'STIR' }, value: { ru: company.taxId, uz: company.taxId } },
-    { key: { ru: 'Дата регистрации', uz: 'Roʻyxatdan oʻtgan sana' }, value: { ru: company.registered, uz: company.registered } },
+    { key: { ru: 'Дата регистрации', uz: 'Ro‘yxatdan o‘tgan sana' }, value: { ru: company.registered, uz: company.registered } },
     { key: { ru: 'Юридический адрес', uz: 'Yuridik manzil' }, value: company.address },
     ...(company.bank ? [
       { key: { ru: 'Банк', uz: 'Bank' }, value: { ru: company.bank.name, uz: company.bank.name } },
@@ -468,7 +468,7 @@ export function homePage () {
     },
     description: {
       ru: 'Электромонтажные и пусконаладочные работы, испытания собственной электролабораторией, пожарная безопасность и автоматика на промышленных объектах Узбекистана. Смета за 1–2 дня.',
-      uz: 'Oʻzbekiston sanoat obyektlarida elektromontaj va ishga tushirish ishlari, oʻz elektrolaboratoriyamiz sinovlari, yongʻin xavfsizligi va avtomatika. Smeta 1–2 kunda.'
+      uz: 'O‘zbekiston sanoat obyektlarida elektromontaj va ishga tushirish ishlari, o‘z elektrolaboratoriyamiz sinovlari, yong‘in xavfsizligi va avtomatika. Smeta 1–2 kunda.'
     },
     canonical: company.baseUrl,
     jsonLd: [organization, faqJsonLd(FAQ_ITEMS)],
