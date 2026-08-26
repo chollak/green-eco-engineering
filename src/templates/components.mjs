@@ -3,8 +3,45 @@
 import { company, passport, standards } from '../data/company.mjs'
 import { sections } from '../data/sections.mjs'
 import { content } from '../data/content.mjs'
+import { photos } from '../data/photos.mjs'
 import { esc, bi, el } from './layout.mjs'
 import { icon } from './icons.mjs'
+
+/**
+ * Фотография-иллюстрация к разделу.
+ *
+ * Подпись прямо называет кадр иллюстрацией: это типовое оборудование, а не
+ * объект компании. Как только появятся снимки с реальных объектов, здесь
+ * меняется только файл и текст подписи.
+ *
+ * Возвращает пустую строку, если фото для раздела нет — блок-оболочка
+ * без данных не отрисовывается.
+ */
+export function photoFigure (slug, num, base = '') {
+  const photo = photos[slug]
+  if (!photo) return ''
+
+  const path = `${base}assets/photos/${slug}`
+  // Контейнер .page — min(100% - 2*gutter, 1320px), sizes должен это повторять,
+  // иначе браузер возьмёт слишком мелкий файл и растянет его
+  const sizes = '(min-width: 1400px) 1320px, (min-width: 640px) 92vw, 100vw'
+
+  return `<figure class="photo" data-reveal="fade">
+  <picture>
+    <source type="image/webp" sizes="${sizes}"
+      srcset="${path}-800.webp 800w, ${path}-1600.webp 1600w">
+    <img src="${path}-1600.jpg" sizes="${sizes}"
+      srcset="${path}-800.jpg 800w, ${path}-1600.jpg 1600w"
+      width="1600" height="900" loading="lazy" decoding="async"
+      data-aria-ru="${esc(photo.alt.ru)}" data-aria-uz="${esc(photo.alt.uz)}"
+      alt="${esc(photo.alt.ru)}">
+  </picture>
+  <figcaption class="photo__cap">
+    <span class="label" ${bi({ ru: `Иллюстрация · раздел ${num}`, uz: `Illyustratsiya · ${num}-bo‘lim` })}>Иллюстрация · раздел ${num}</span>
+    ${el('span', 't-small', photo.caption)}
+  </figcaption>
+</figure>`
+}
 
 /** Шильдик «параметр : значение» — настоящий <dl>, его читает скринридер. */
 export function plate (rows, cls = '', id = '') {

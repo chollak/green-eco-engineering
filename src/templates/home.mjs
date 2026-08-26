@@ -11,7 +11,7 @@ import { page, esc, bi, el } from './layout.mjs'
 import { icon } from './icons.mjs'
 import {
   plate, passportPlate, standardChips, rubric,
-  faqList, faqJsonLd, contactBand, sldDiagram, sldLegend
+  faqList, faqJsonLd, contactBand, sldDiagram, sldLegend, photoFigure
 } from './components.mjs'
 
 const bySlug = slug => sections.find(item => item.slug === slug)
@@ -482,6 +482,7 @@ export function homePage () {
     jsonLd: [organization, faqJsonLd(FAQ_ITEMS)],
     body: [
       hero(),
+      `<section class="section" style="padding-block:0"><div class="page">${photoFigure('elektromontazhnye-raboty', '01')}</div></section>`,
       passportSection(),
       catalogSection(),
       chainSection(),

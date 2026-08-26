@@ -1228,3 +1228,32 @@ svg { display: block; }
   .plate, .faq__item { break-inside: avoid; }
   h1, h2, h3 { break-after: avoid; }
 }
+
+/* --------------------------------------------------------- ФОТОГРАФИИ */
+
+/* Кадр обрамляется той же hairline-рамкой, что и модули, а подпись
+   повторяет язык шильдика: сначала моно-метка, под ней описание. */
+.photo {
+  margin: 0;
+  background: var(--bg-raised);
+  box-shadow: var(--ring);
+}
+
+.photo img {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+}
+
+.photo__cap {
+  display: grid;
+  gap: var(--s1);
+  padding: var(--s3) var(--s4);
+  box-shadow: inset 0 1px 0 var(--line);
+}
+
+@media print {
+  .photo { box-shadow: none; border: 1px solid #888; break-inside: avoid; }
+}

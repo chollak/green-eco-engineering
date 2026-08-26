@@ -6,7 +6,7 @@ import { groups } from '../data/groups.mjs'
 import { enrichment } from '../data/enrichment.mjs'
 import { page, esc, bi, el } from './layout.mjs'
 import { icon } from './icons.mjs'
-import { plate, rubric, faqList, faqJsonLd, contactBand } from './components.mjs'
+import { plate, rubric, faqList, faqJsonLd, contactBand, photoFigure } from './components.mjs'
 
 const BRAND = ' · GREEN ECO'
 
@@ -130,6 +130,10 @@ export function sectionPage (section) {
     </div>
   </div>
 </section>
+
+${photoFigure(section.slug, section.num, '../') ? `<section class="section" style="padding-block:0">
+  <div class="page">${photoFigure(section.slug, section.num, '../')}</div>
+</section>` : ''}
 
 <section class="section section--major" aria-labelledby="scope-h">
   <div class="page doc-layout">
