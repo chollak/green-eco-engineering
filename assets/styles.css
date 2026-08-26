@@ -852,28 +852,35 @@ svg { display: block; }
 
 .sld { display: grid; gap: var(--s5); }
 .sld__svg { width: 100%; height: auto; color: var(--line-strong); }
-.sld__svg .node { stroke: var(--accent-graphic); }
-.sld__svg .bus { stroke: var(--ink); }
+.sld__svg .sld-node { stroke: var(--accent-graphic); }
+.sld__svg .sld-bus { stroke: var(--fg); }
+.sld__svg .sld-text { font-family: var(--font-mono); fill: var(--fg-faint); }
+
+/* Ниже 700px подписи в SVG становятся нечитаемыми: масштабируется весь чертёж
+   целиком. Схему прячем — тот же маршрут полностью описан списком под ней. */
+@media (max-width: 700px) {
+  .sld__svg { display: none; }
+}
 
 .sld-list { display: grid; gap: 1px; background: var(--line-strong); box-shadow: var(--ring); }
 
 .sld-list__item {
   background: var(--bg-raised);
-  display: flex;
-  align-items: center;
+  display: grid;
+  grid-template-columns: 9.5rem minmax(0, 1fr);
   gap: var(--s3);
+  align-items: baseline;
   padding: var(--s3) var(--s4);
   min-height: 48px;
   transition: background-color var(--d-1) var(--ease-productive);
 }
 
 .sld-list__item:hover { background: var(--bg-sunk); }
-.sld-list__stage { font-family: var(--font-mono); font-size: .6875rem; letter-spacing: .06em; text-transform: uppercase; color: var(--fg-faint); flex-shrink: 0; min-width: 8ch; }
+.sld-list__stage { font-family: var(--font-mono); font-size: .6875rem; letter-spacing: .06em; text-transform: uppercase; color: var(--fg-faint); }
 
 /* На узких экранах метка этапа уходит над содержимым: «РАСПРЕДЕЛЕНИЕ» + текст в строку не влезают */
 @media (max-width: 560px) {
-  .sld-list__item { flex-direction: column; align-items: flex-start; gap: var(--s1); }
-  .sld-list__stage { min-width: 0; }
+  .sld-list__item { grid-template-columns: minmax(0, 1fr); gap: var(--s1); }
 }
 
 .sld-legend { display: flex; flex-wrap: wrap; gap: var(--s3) var(--s4); }

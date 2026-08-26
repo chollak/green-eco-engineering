@@ -318,34 +318,65 @@
         <p class="t-lead" data-ru="Направления перечислены не по алфавиту, а по движению энергии на объекте. Порядок сам объясняет, зачем подрядчику 17 направлений." data-uz="Yo‘nalishlar alifbo bo‘yicha emas, obyektdagi energiya harakati bo‘yicha tartiblangan. Tartibning o‘zi pudratchiga nega 17 yo‘nalish kerakligini tushuntiradi.">Направления перечислены не по алфавиту, а по движению энергии на объекте. Порядок сам объясняет, зачем подрядчику 17 направлений.</p>
       </div>
       <div class="sld" data-reveal>
-        <svg class="sld__svg" viewBox="0 0 1200 250" fill="none" aria-hidden="true" focusable="false" preserveAspectRatio="xMidYMid meet">
-  <g stroke="currentColor" stroke-width="2" stroke-linecap="square">
-    <path d="M30 60h90"/>
-    <path d="M120 60v0"/>
-    <circle cx="146" cy="60" r="22" class="node" stroke-width="2"/>
-    <circle cx="146" cy="86" r="22" class="node" stroke-width="2"/>
-    <path d="M146 108v34"/>
-    <path class="bus" d="M60 150h1080" stroke-width="5"/>
-    <path d="M180 150v46M360 150v46M540 150v46M720 150v46M900 150v46M1080 150v46"/>
-    <rect x="152" y="196" width="56" height="34"/>
-    <rect x="332" y="196" width="56" height="34"/>
-    <rect x="512" y="196" width="56" height="34"/>
-    <rect x="692" y="196" width="56" height="34"/>
-    <rect x="872" y="196" width="56" height="34"/>
-    <rect x="1052" y="196" width="56" height="34"/>
-    <path d="M990 60v90"/>
-    <circle cx="990" cy="46" r="22"/>
-    <path d="M1130 60v90"/>
-    <path d="M1104 30h52l14 30h-52z"/>
-    <path d="M1118 45h44"/>
+        <svg class="sld__svg" viewBox="0 0 1200 330" fill="none" aria-hidden="true" focusable="false" preserveAspectRatio="xMidYMid meet">
+  <g class="sld-line" stroke="currentColor" stroke-width="2" stroke-linecap="square">
+
+    <!-- Ввод 6/10 кВ: линия, разъединитель, силовой трансформатор -->
+    <path d="M20 62h60"/>
+    <path d="M80 62h26"/>
+    <path d="M104 74l26-24"/>
+    <path d="M130 62h34"/>
+    <circle class="sld-node" cx="186" cy="62" r="22"/>
+    <circle class="sld-node" cx="186" cy="92" r="22"/>
+    <path d="M186 114v46"/>
+
+    <!-- Сборные шины 0,4 кВ -->
+    <path class="sld-bus" d="M60 160h1080" stroke-width="6"/>
+
+    <!-- Отходящие линии: автомат в рассечке, под ним потребитель -->
+    <path d="M300 160v30M300 214v34M460 160v30M460 214v34M620 160v30M620 214v34"/>
+    <rect class="sld-node" x="292" y="190" width="16" height="24"/>
+    <rect class="sld-node" x="452" y="190" width="16" height="24"/>
+    <rect class="sld-node" x="612" y="190" width="16" height="24"/>
+
+    <!-- Освещение -->
+    <circle cx="300" cy="268" r="20"/>
+    <path d="M286 254l28 28M314 254l-28 28"/>
+
+    <!-- Электродвигатель -->
+    <circle cx="460" cy="268" r="20"/>
+
+    <!-- Крановое хозяйство -->
+    <rect x="596" y="248" width="48" height="40"/>
+    <path d="M620 288v14M610 302h20"/>
+
+    <!-- Резерв: ДГУ через АВР -->
+    <circle cx="880" cy="62" r="22"/>
+    <path d="M880 84v22"/>
+    <rect x="852" y="106" width="56" height="30"/>
+    <path d="M880 136v24"/>
+
+    <!-- Солнечная электростанция через инвертор -->
+    <path d="M1040 40h72l-14 30h-72z"/>
+    <path d="M1058 55h50"/>
+    <path d="M1076 70v36"/>
+    <rect x="1048" y="106" width="56" height="30"/>
+    <path d="M1076 136v24"/>
+    <path d="M1062 121h12M1078 121h12" stroke-width="1.6"/>
   </g>
-  <g fill="currentColor" class="node">
-    <rect x="174" y="144" width="12" height="12"/>
-    <rect x="354" y="144" width="12" height="12"/>
-    <rect x="534" y="144" width="12" height="12"/>
-    <rect x="714" y="144" width="12" height="12"/>
-    <rect x="894" y="144" width="12" height="12"/>
-    <rect x="1074" y="144" width="12" height="12"/>
+
+  <g class="sld-text" font-size="15" letter-spacing="0.04em">
+    <text x="20" y="44">6/10 kV</text>
+    <text x="216" y="70">TP</text>
+    <text x="216" y="92">6/10/0,4 kV</text>
+    <text x="60" y="188">0,4 kV · VRU / GRSH</text>
+    <text x="300" y="316" text-anchor="middle">EL</text>
+    <text x="460" y="316" text-anchor="middle">M</text>
+    <text x="620" y="316" text-anchor="middle">KR</text>
+    <text x="880" y="44" text-anchor="middle">DGU</text>
+    <text x="880" y="126" text-anchor="middle">AVR</text>
+    <text x="1076" y="34" text-anchor="middle">PV</text>
+    <text x="1076" y="126" text-anchor="middle">INV</text>
   </g>
 </svg>
         <div class="sld-legend">
