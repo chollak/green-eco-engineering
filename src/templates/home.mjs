@@ -6,23 +6,13 @@ import { sections } from '../data/sections.mjs'
 import { groups } from '../data/groups.mjs'
 import { content } from '../data/content.mjs'
 import { enrichment } from '../data/enrichment.mjs'
+import { SECTION_COUNT, SERVICE_COUNT, KEY_SLUGS, KEY_COUNT, REST_COUNT, pluralKind } from '../data/counts.mjs'
 import { page, esc, bi, el } from './layout.mjs'
 import { icon } from './icons.mjs'
 import {
   plate, passportPlate, standardChips, rubric,
   faqList, faqJsonLd, contactBand, sldDiagram, sldLegend
 } from './components.mjs'
-
-/** Шесть направлений выносятся крупными плитками — остальные компактными строками.
- *  Ровная решётка из 17 одинаковых карточек читается как каталог без приоритетов. */
-const KEY_SLUGS = [
-  'elektromontazhnye-raboty',
-  'elektrolaboratoriya',
-  'pozharnaya-bezopasnost',
-  'vysokovoltnye-raboty',
-  'puskonaladochnye-raboty',
-  'solnechnye-elektrostancii'
-]
 
 const bySlug = slug => sections.find(item => item.slug === slug)
 
@@ -67,7 +57,7 @@ function hero () {
 
 function passportSection () {
   const statItems = stats.map(stat => `<div class="stat">
-    <span class="stat__value">${esc(stat.value)}${stat.unit ? `<span class="stat__unit">${esc(stat.unit)}</span>` : ''}</span>
+    <span class="stat__value">${esc(stat.value)}${stat.unit ? `<span class="stat__unit" ${bi(stat.unit)}>${esc(stat.unit.ru)}</span>` : ''}</span>
     <span class="label stat__label" ${bi(stat.label)}>${esc(stat.label.ru)}</span>
   </div>`).join('')
 
@@ -103,7 +93,7 @@ function catalogSection () {
         `<li ${bi(service)}>${esc(service.ru)}</li>`
       ).join('')}</ul>
       <span class="dir-tile__foot">
-        <span class="label" ${bi({ ru: `${section.services.length} видов работ`, uz: `${section.services.length} ta ish turi` })}>${section.services.length} видов работ</span>
+        <span class="label" ${bi({ ru: `${section.services.length} видов работ`, uz: `${section.services.length} ta ish turi` })}>${section.services.length} ${pluralKind(section.services.length)} работ</span>
         ${icon('arrowRight', { size: 18, cls: 'icon' })}
       </span>
     </a>`
@@ -120,7 +110,7 @@ function catalogSection () {
   <div class="page stack stack--wide">
     <div class="layout-b">
       <div>
-        ${rubric({ ru: 'Каталог · 109 видов работ', uz: 'Katalog · 109 ta ish turi' })}
+        ${rubric({ ru: `Каталог · ${SERVICE_COUNT} ${pluralKind(SERVICE_COUNT)} работ`, uz: `Katalog · ${SERVICE_COUNT} ta ish turi` })}
         ${el('h2', 't-h2', { ru: '17 направлений под одним договором', uz: 'Bitta shartnoma ostida 17 yo‘nalish' }, 'id="catalog-h"')}
       </div>
       ${el('p', 't-lead', {
@@ -370,6 +360,14 @@ function credentialsSection () {
           ${el('h3', 'label', { ru: 'Реквизиты для договора', uz: 'Shartnoma uchun rekvizitlar' })}
           <div style="margin-top:var(--s3)">${plate(requisites)}</div>
         </div>
+        ${company.labCertificate ? `<div>
+          ${el('h3', 'label', { ru: 'Свидетельство электролаборатории', uz: 'Elektrolaboratoriya guvohnomasi' })}
+          <div style="margin-top:var(--s3)">${plate([
+            { key: { ru: 'Номер', uz: 'Raqami' }, value: { ru: company.labCertificate.number, uz: company.labCertificate.number } },
+            { key: { ru: 'Дата выдачи', uz: 'Berilgan sana' }, value: { ru: company.labCertificate.date, uz: company.labCertificate.date } },
+            { key: { ru: 'Кем выдано', uz: 'Kim tomonidan' }, value: { ru: company.labCertificate.issuedBy, uz: company.labCertificate.issuedBy } }
+          ])}</div>
+        </div>` : ''}
         ${company.staff ? `<div>
           ${el('h3', 'label', { ru: 'Аттестация персонала', uz: 'Xodimlar attestatsiyasi' })}
           <div style="margin-top:var(--s3)">${plate([
@@ -424,21 +422,31 @@ export function homePage () {
   const organization = {
     '@context': 'https://schema.org',
     '@type': 'ElectricalContractor',
+    '@id': `${company.baseUrl}#organization`,
     name: company.name,
     legalName: company.legalName.ru,
     taxID: company.taxId,
     url: company.baseUrl,
     telephone: company.phone,
     email: company.email,
+    image: `${company.baseUrl}assets/og-image.png`,
     foundingDate: company.registeredIso,
     address: {
       '@type': 'PostalAddress',
-      streetAddress: 'ул. Райхон, 107, МФЙ Файзли',
+      streetAddress: 'Янгихаётский район, МФЙ Файзли, ул. Райхон, 107',
       addressLocality: 'Ташкент',
-      addressRegion: 'Янгихаётский район',
       addressCountry: 'UZ'
     },
-    areaServed: { '@type': 'Country', name: 'Узбекистан' },
+    openingHoursSpecification: [{
+      '@type': 'OpeningHoursSpecification',
+      dayOfWeek: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'],
+      opens: '09:00',
+      closes: '18:00'
+    }],
+    areaServed: [
+      { '@type': 'City', name: 'Ташкент' },
+      { '@type': 'AdministrativeArea', name: 'Ташкентская область' }
+    ],
     hasOfferCatalog: {
       '@type': 'OfferCatalog',
       name: 'Электромонтаж и энергетика',

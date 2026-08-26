@@ -7,12 +7,12 @@ import { esc, bi, el, reveal } from './layout.mjs'
 import { icon } from './icons.mjs'
 
 /** Шильдик «параметр : значение» — настоящий <dl>, его читает скринридер. */
-export function plate (rows, cls = '') {
-  const items = rows.map(row => `<div class="plate__row">
-    <dt class="plate__key" ${bi(row.key)}>${esc(row.key.ru)}</dt>
-    <dd class="plate__val" ${bi(row.value)}>${esc(row.value.ru)}</dd>
+export function plate (rows, cls = '', id = '') {
+  const items = rows.map(row => `<div class="plate__row" data-copy-key>
+    <dt class="plate__key" data-copy-key-text ${bi(row.key)}>${esc(row.key.ru)}</dt>
+    <dd class="plate__val" data-copy-value ${bi(row.value)}>${esc(row.value.ru)}</dd>
   </div>`).join('')
-  return `<dl class="plate ${cls}">${items}</dl>`
+  return `<dl class="plate ${cls}"${id ? ` id="${id}"` : ''}>${items}</dl>`
 }
 
 export function passportPlate () {
@@ -20,8 +20,8 @@ export function passportPlate () {
 }
 
 export function standardChips () {
-  return `<div class="chip-row">${standards.map(name =>
-    `<span class="chip chip--info">${esc(name)}</span>`
+  return `<div class="chip-row">${standards.map(item =>
+    `<span class="chip chip--info" ${bi(item)}>${esc(item.ru)}</span>`
   ).join('')}</div>`
 }
 
@@ -66,7 +66,7 @@ export function leadForm () {
     `<option value="${section.slug}" ${bi(section.title)}>${esc(section.title.ru)}</option>`
   ).join('')
 
-  return `<form class="form" data-form novalidate>
+  return `<form class="form" data-form action="mailto:info@greeneco.uz" method="post" enctype="text/plain">
   <div class="form__row">
     <div class="field">
       ${el('label', 'field__label', { ru: 'Организация', uz: 'Tashkilot' }, 'for="lead-org"')}
@@ -124,7 +124,7 @@ export function contactBand (base = '') {
 
   return `<section class="section section--major band band--ink" id="contact" aria-labelledby="contact-h">
   <div class="page">
-    <div class="doc-layout">
+    <div class="contact-layout">
       <div class="stack">
         ${rubric({ ru: 'Контакты', uz: 'Aloqa' })}
         ${el('h2', 't-h2', content.cta.title, 'id="contact-h"')}
@@ -134,8 +134,8 @@ export function contactBand (base = '') {
           <a class="data" href="mailto:${company.email}">${company.email}</a>
         </p>
         <p class="emergency">${icon('bolt', { size: 16 })}<span ${bi({ ru: 'Аварийная служба', uz: 'Avariya xizmati' })}>Аварийная служба</span> <b>24/7</b></p>
-        ${plate(rows)}
-        <button type="button" class="btn btn--ghost" data-copy-req
+        ${plate(rows, '', 'contact-req')}
+        <button type="button" class="btn btn--ghost" data-copy-req="contact-req"
           ${bi({ ru: 'Скопировать реквизиты', uz: 'Rekvizitlarni nusxalash' })}>Скопировать реквизиты</button>
         <p class="label" data-copy-status role="status"></p>
       </div>
@@ -183,7 +183,7 @@ export function sldDiagram () {
 </svg>`
 }
 
-/** Легенда IEC 60446. Каждый образец в рамке: серый L3 сам по себе даёт 2.6:1. */
+/** Легенда IEC 60445. Каждый образец в рамке: серый L3 сам по себе даёт 2.6:1. */
 export function sldLegend () {
   const items = [
     { cls: 'swatch--l1', text: { ru: 'L1 — коричневый', uz: 'L1 — jigarrang' } },
@@ -194,7 +194,7 @@ export function sldLegend () {
   ]
 
   return `<div class="sld-legend">
-    <span class="label" ${bi({ ru: 'Маркировка жил по IEC 60446:', uz: 'IEC 60446 bo‘yicha tomirlar belgilanishi:' })}>Маркировка жил по IEC 60446:</span>
+    <span class="label" ${bi({ ru: 'Маркировка жил по IEC 60445:', uz: 'IEC 60445 bo‘yicha tomirlar belgilanishi:' })}>Маркировка жил по IEC 60445:</span>
     ${items.map(item => `<span class="sld-legend__item">
       <span class="sld-legend__swatch ${item.cls}"></span><span ${bi(item.text)}>${esc(item.text.ru)}</span>
     </span>`).join('')}

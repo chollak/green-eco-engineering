@@ -8,9 +8,10 @@ import { page, esc, bi, el } from './layout.mjs'
 import { icon } from './icons.mjs'
 import { plate, rubric, faqList, faqJsonLd, contactBand } from './components.mjs'
 
-const BRAND = ' — GREEN ECO ENGINEERING'
+const BRAND = ' · GREEN ECO'
 
-/** Бренд в title дописывается, только если строка остаётся в пределах выдачи (~65 знаков). */
+/** Бренд дописывается, пока строка укладывается в выдачу (~65 знаков).
+ *  Длинный суффикс « — GREEN ECO ENGINEERING» не помещался ни в один title. */
 function withBrand (title) {
   return title.length + BRAND.length <= 65 ? title + BRAND : title
 }
@@ -43,7 +44,7 @@ function asideCard (section, extra) {
     { key: { ru: 'Видов работ', uz: 'Ish turlari' }, value: { ru: String(section.services.length), uz: String(section.services.length) } },
     { key: { ru: 'Шифр раздела', uz: 'Bo‘lim shifri' }, value: { ru: section.num, uz: section.num } },
     { key: { ru: 'Смета', uz: 'Smeta' }, value: { ru: '1–2 рабочих дня', uz: '1–2 ish kuni' } },
-    { key: { ru: 'География', uz: 'Geografiya' }, value: company.addressShort }
+    { key: { ru: 'География', uz: 'Geografiya' }, value: company.geography }
   ])}
   ${extra}
 </aside>`
@@ -78,14 +79,11 @@ export function sectionPage (section) {
     serviceType: section.title.ru,
     description: (extra ? extra.seoDescription.ru : section.short.ru),
     url: `${company.baseUrl}services/${section.slug}.html`,
-    areaServed: { '@type': 'Country', name: 'Узбекистан' },
-    provider: {
-      '@type': 'ElectricalContractor',
-      name: company.name,
-      taxID: company.taxId,
-      telephone: company.phone,
-      url: company.baseUrl
-    },
+    areaServed: [
+      { '@type': 'City', name: 'Ташкент' },
+      { '@type': 'AdministrativeArea', name: 'Ташкентская область' }
+    ],
+    provider: { '@id': `${company.baseUrl}#organization` },
     hasOfferCatalog: {
       '@type': 'OfferCatalog',
       name: section.title.ru,

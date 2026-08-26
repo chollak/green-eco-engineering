@@ -68,6 +68,11 @@
     })
   }
 
+  // Подписчики на смену языка: их вызывают блоки, чей текст собирается скриптом
+  var langListeners = []
+
+  function onLangChange (fn) { langListeners.push(fn) }
+
   function initLang () {
     applyLang(storedLang())
 
@@ -80,6 +85,7 @@
           /* приватный режим: выбор просто не запомнится */
         }
         applyLang(next)
+        langListeners.forEach(function (fn) { fn(next) })
       })
     })
   }
@@ -112,7 +118,7 @@
       panel.classList.remove('is-open')
       toggle.classList.remove('is-open')
       toggle.setAttribute('aria-expanded', 'false')
-      document.body.classList.remove('is-locked')
+      document.documentElement.classList.remove('is-locked')
       if (focusWasInside) toggle.focus()
     }
 
@@ -120,7 +126,7 @@
       panel.classList.add('is-open')
       toggle.classList.add('is-open')
       toggle.setAttribute('aria-expanded', 'true')
-      document.body.classList.add('is-locked')
+      document.documentElement.classList.add('is-locked')
       var first = $('a, button', panel)
       if (first) first.focus()
     }
@@ -144,8 +150,9 @@
 
       // Ловушка фокуса: пока панель открыта, Tab не должен уводить на фон
       if (event.key !== 'Tab') return
-      var focusable = $$('a[href], button:not([disabled])', panel)
-      if (!focusable.length) return
+      // Кнопка-переключатель видима поверх панели и обязана быть в цикле
+      var focusable = [toggle].concat($$('a[href], button:not([disabled])', panel))
+      if (focusable.length < 2) return
 
       var first = focusable[0]
       var last = focusable[focusable.length - 1]
@@ -160,7 +167,7 @@
     })
 
     window.addEventListener('resize', function () {
-      if (window.innerWidth > 1080 && panel.classList.contains('is-open')) close()
+      if (window.innerWidth >= 1200 && panel.classList.contains('is-open')) close()
     })
   }
 
@@ -192,7 +199,7 @@
 
     function showAll () {
       items.forEach(function (node) { node.classList.add('is-in') })
-      bars.forEach(function (bar) { bar.style.transform = 'scaleX(' + (bar.style.getPropertyValue('--v') || 1) + ')' })
+      bars.forEach(function (bar) { bar.style.transform = 'scaleX(var(--v))' })
     }
 
     if (reduceMotion.matches || !('IntersectionObserver' in window)) {
@@ -200,31 +207,68 @@
       return
     }
 
+    // Наблюдатель отвечает за плавное появление, но на него нельзя полагаться
+    // полностью: при мгновенном скачке (клик по якорю, быстрая прокрутка) элемент
+    // может не попасть ни в один кадр пересечения и остаться скрытым навсегда.
+    // Поэтому рядом работает детерминированная проверка по геометрии.
+    var pending = items.slice()
+    var pendingBars = bars.slice()
+
+    // threshold строго 0: для блока выше экрана максимально достижимая доля
+    // видимости равна (высота экрана / высота блока) — любой ненулевой порог недостижим.
     var observer = new IntersectionObserver(function (entries) {
       entries.forEach(function (entry) {
-        if (!entry.isIntersecting) return
-        entry.target.classList.add('is-in')
-        observer.unobserve(entry.target)
+        if (entry.isIntersecting) show(entry.target)
       })
-    }, { threshold: 0.18, rootMargin: '0px 0px -8% 0px' })
+    }, { threshold: 0, rootMargin: '0px 0px -8% 0px' })
 
     items.forEach(function (node) { observer.observe(node) })
 
-    // Бары заполняются при попадании в экран — transform, а не width
-    if (bars.length) {
-      var barObserver = new IntersectionObserver(function (entries) {
-        entries.forEach(function (entry) {
-          if (!entry.isIntersecting) return
-          entry.target.style.transform = 'scaleX(var(--v))'
-          barObserver.unobserve(entry.target)
-        })
-      }, { threshold: 0.4 })
+    function show (node) {
+      node.classList.add('is-in')
+      observer.unobserve(node)
+      var index = pending.indexOf(node)
+      if (index !== -1) pending.splice(index, 1)
+    }
 
-      bars.forEach(function (bar) {
-        bar.style.transform = 'scaleX(0)'
-        barObserver.observe(bar)
+    function sweep () {
+      var limit = window.innerHeight
+
+      for (var i = pending.length - 1; i >= 0; i--) {
+        if (pending[i].getBoundingClientRect().top < limit) show(pending[i])
+      }
+
+      // Условие такое же, как у блоков: «дошёл до экрана», а не «сейчас в кадре» —
+      // иначе при быстрой прокрутке бар остаётся пустым навсегда
+      for (var j = pendingBars.length - 1; j >= 0; j--) {
+        if (pendingBars[j].getBoundingClientRect().top < limit) {
+          pendingBars[j].style.transform = 'scaleX(var(--v))'
+          pendingBars.splice(j, 1)
+        }
+      }
+
+      if (!pending.length && !pendingBars.length) {
+        window.removeEventListener('scroll', onScroll)
+        window.removeEventListener('resize', onScroll)
+      }
+    }
+
+    var ticking = false
+
+    function onScroll () {
+      if (ticking) return
+      ticking = true
+      requestAnimationFrame(function () {
+        sweep()
+        ticking = false
       })
     }
+
+    bars.forEach(function (bar) { bar.style.transform = 'scaleX(0)' })
+
+    window.addEventListener('scroll', onScroll, { passive: true })
+    window.addEventListener('resize', onScroll)
+    requestAnimationFrame(sweep)
   }
 
   /** Однолинейная схема отрисовывается один раз, по скроллу не перезапускается. */
@@ -286,6 +330,7 @@
     }
 
     if (input) input.addEventListener('input', apply)
+    onLangChange(apply)
 
     tags.forEach(function (tag) {
       tag.addEventListener('click', function () {
@@ -308,13 +353,13 @@
     if (!button) return
 
     button.addEventListener('click', function () {
-      var plateNode = button.previousElementSibling
+      var source = document.getElementById(button.getAttribute('data-copy-req'))
       var lines = []
 
-      if (plateNode) {
-        $$('.plate__row', plateNode).forEach(function (row) {
-          var key = $('.plate__key', row)
-          var value = $('.plate__val', row)
+      if (source) {
+        $$('[data-copy-key]', source).forEach(function (row) {
+          var key = $('[data-copy-key-text]', row) || row.firstElementChild
+          var value = $('[data-copy-value]', row) || row.lastElementChild
           if (key && value) lines.push(key.textContent.trim() + ': ' + value.textContent.trim())
         })
       }
@@ -342,9 +387,9 @@
         area.style.left = '-9999px'
         document.body.appendChild(area)
         area.select()
-        document.execCommand('copy')
+        var copied = document.execCommand('copy')
         document.body.removeChild(area)
-        report(ok)
+        report(copied ? ok : fail)
       } catch (error) {
         report(fail)
       }
@@ -352,6 +397,8 @@
   }
 
   /* ----------------------------------------------------------------- форма */
+
+  var MAIL_TO = 'info@greeneco.uz'
 
   var MESSAGES = {
     name: {
@@ -393,19 +440,40 @@
 
     if (error) error.id = 'lead-error'
 
+    var successTimer = null
+
     form.addEventListener('submit', function (event) {
       event.preventDefault()
 
-      ;[name, phone].forEach(function (field) { field.removeAttribute('aria-invalid') })
+      ;[name, phone].forEach(function (field) {
+        field.removeAttribute('aria-invalid')
+        field.removeAttribute('aria-describedby')
+      })
       error.hidden = true
 
       if (!name.value.trim()) return fail(name, 'name')
       if (phone.value.replace(/\D/g, '').length < 9) return fail(phone, 'phone')
 
-      // TODO: подключить отправку — Telegram Bot API, почтовый шлюз или Formspree.
+      // Приёмник заявок не подключён, поэтому вместо ложного «отправлено»
+      // открываем почтовый клиент с уже собранным письмом: заявка не теряется.
+      // Когда появится Telegram Bot API или почтовый шлюз — заменить на fetch
+      // и показывать успех только по успешному ответу.
+      var lines = [
+        'Организация: ' + (form.querySelector('#lead-org').value.trim() || '—'),
+        'Контактное лицо: ' + name.value.trim(),
+        'Телефон: ' + phone.value.trim(),
+        'Направление работ: ' + (form.querySelector('#lead-service').selectedOptions[0] || {}).text,
+        '',
+        form.querySelector('#lead-msg').value.trim()
+      ]
+
+      window.location.href = 'mailto:' + MAIL_TO +
+        '?subject=' + encodeURIComponent('Заявка с сайта — ' + name.value.trim()) +
+        '&body=' + encodeURIComponent(lines.join('\n'))
+
       success.hidden = false
-      form.reset()
-      setTimeout(function () { success.hidden = true }, 8000)
+      clearTimeout(successTimer)
+      successTimer = setTimeout(function () { success.hidden = true }, 12000)
     })
 
     if (phone) {

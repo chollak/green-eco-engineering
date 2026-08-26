@@ -36,7 +36,7 @@ export const content = {
   },
   cta: {
     title: { ru: 'Пришлите однолинейную схему или ТЗ — посчитаем объём', uz: 'Bir chiziqli sxema yoki texnik topshiriqni yuboring — hajmni hisoblaymiz' },
-    lead: { ru: 'Смотрим документы, при необходимости выезжаем на объект и даём смету с разбивкой по позициям. Ответ по коммерческому предложению — в течение рабочего дня.', uz: 'Hujjatlarni ko‘rib chiqamiz, zarur bo‘lsa obyektga chiqamiz va pozitsiyalar bo‘yicha ajratilgan smeta beramiz. Tijorat taklifi bo‘yicha javob — bir ish kuni ichida.' },
+    lead: { ru: 'Смотрим документы, при необходимости выезжаем на объект и даём смету с разбивкой по позициям. Коммерческое предложение — за 1–2 рабочих дня.', uz: 'Hujjatlarni ko‘rib chiqamiz, zarur bo‘lsa obyektga chiqamiz va pozitsiyalar bo‘yicha ajratilgan smeta beramiz. Tijorat taklifi bo‘yicha javob — bir ish kuni ichida.' },
   },
   process: {
     title: { ru: 'Как мы ведём объект: от заявки до акта', uz: 'Obyektni qanday olib boramiz: chaqiruvdan dalolatnomagacha' },

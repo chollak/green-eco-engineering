@@ -1,3 +1,5 @@
+import { SECTION_COUNT, SERVICE_COUNT } from './counts.mjs'
+
 // Реквизиты, обязательства и проверяемые факты компании.
 //
 // ВАЖНО: поля со значением null НЕ выдуманы намеренно — соответствующий блок
@@ -81,7 +83,7 @@ export const passport = [
   { key: { ru: 'ИНН / STIR', uz: 'STIR' }, value: { ru: '303724307', uz: '303724307' } },
   { key: { ru: 'Дата регистрации', uz: 'Ro‘yxatdan o‘tgan sana' }, value: { ru: '14.01.2016', uz: '14.01.2016' } },
   { key: { ru: 'Направлений работ', uz: 'Ish yo‘nalishlari' }, value: { ru: '17', uz: '17' } },
-  { key: { ru: 'Видов работ', uz: 'Ish turlari' }, value: { ru: '109', uz: '109' } },
+  { key: { ru: 'Видов работ', uz: 'Ish turlari' }, value: { ru: String(SERVICE_COUNT), uz: String(SERVICE_COUNT) } },
   { key: { ru: 'Электролаборатория', uz: 'Elektrolaboratoriya' }, value: { ru: 'собственная', uz: 'o‘zimizniki' } },
   { key: { ru: 'Класс напряжения', uz: 'Kuchlanish sinfi' }, value: { ru: 'до 110 кВ', uz: '110 kV gacha' } },
   { key: { ru: 'Группы по электробезопасности', uz: 'Elektr xavfsizligi guruhlari' }, value: { ru: 'до V включительно', uz: 'V gacha' } },
@@ -91,20 +93,20 @@ export const passport = [
 
 /** Нормативная база — чипы. Инженер читает это как допуск к разговору. */
 export const standards = [
-  'ПУЭ',
-  'ПТЭЭП',
-  'ШНК РУз',
-  'ГОСТ 12.4.026-2015',
-  'IEC 60364',
-  'IEC 60446'
+  { ru: 'ПУЭ', uz: 'PUE' },
+  { ru: 'ПТЭЭП', uz: 'PTEEP' },
+  { ru: 'ШНК РУз', uz: 'O‘zR ShNQ' },
+  { ru: 'ГОСТ 12.4.026-2015', uz: 'GOST 12.4.026-2015' },
+  { ru: 'IEC 60364', uz: 'IEC 60364' },
+  { ru: 'IEC 60445', uz: 'IEC 60445' }
 ]
 
 /** Четыре факта с единицами измерения для полосы статистики. */
 export const stats = [
   { value: '2016', unit: null, label: { ru: 'год регистрации', uz: 'ro‘yxatdan o‘tgan yil' } },
   { value: '17', unit: null, label: { ru: 'направлений работ', uz: 'ish yo‘nalishi' } },
-  { value: '109', unit: null, label: { ru: 'видов работ в каталоге', uz: 'katalogdagi ish turi' } },
-  { value: '110', unit: 'кВ', label: { ru: 'максимальный класс напряжения', uz: 'maksimal kuchlanish sinfi' } }
+  { value: String(SERVICE_COUNT), unit: null, label: { ru: 'видов работ в каталоге', uz: 'katalogdagi ish turi' } },
+  { value: '110', unit: { ru: 'кВ', uz: 'kV' }, label: { ru: 'максимальный класс напряжения', uz: 'maksimal kuchlanish sinfi' } }
 ]
 
 /** Отраслевой разрез: вторая ось входа в каталог — по типу объекта. */

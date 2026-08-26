@@ -2,12 +2,13 @@
 
 import { company } from '../data/company.mjs'
 import { sections } from '../data/sections.mjs'
+import { SERVICE_COUNT, pluralKind } from '../data/counts.mjs'
 import { page, esc, bi, el } from './layout.mjs'
 import { icon } from './icons.mjs'
 
 export function notFoundPage () {
   const links = sections.slice(0, 8).map(section =>
-    `<a href="services/${section.slug}.html">
+    `<a href="${company.baseUrl}services/${section.slug}.html">
       <span class="n" aria-hidden="true">${section.num}</span>
       <span ${bi(section.title)}>${esc(section.title.ru)}</span>
     </a>`
@@ -22,11 +23,11 @@ export function notFoundPage () {
       uz: 'Manzil eskirgan yoki xato yozilgan. Quyida — asosiy bo‘limlar; 109 ta ish turidan iborat to‘liq katalog bitta havola bilan ochiladi.'
     })}
     <div class="hero__actions">
-      <a class="btn btn--primary" href="index.html">
+      <a class="btn btn--primary" href="${company.baseUrl}">
         <span ${bi({ ru: 'На главную', uz: 'Bosh sahifaga' })}>На главную</span>
         ${icon('arrowRight', { size: 18, cls: 'icon icon--arrow' })}
       </a>
-      <a class="btn btn--ghost" href="services/index.html">
+      <a class="btn btn--ghost" href="${company.baseUrl}services/index.html">
         <span ${bi({ ru: 'Каталог работ', uz: 'Ishlar katalogi' })}>Каталог работ</span>
       </a>
     </div>
@@ -35,12 +36,16 @@ export function notFoundPage () {
   </div>
 </section>`
 
+  // Pages отдаёт этот файл на ЛЮБОМ несуществующем пути, не меняя адрес в строке.
+  // При относительных путях со /services/opechatka.html стили и ссылки уходят
+  // в /services/assets/... — страница превращается в голый текст.
   return page({
-    base: '',
+    base: company.baseUrl,
     title: { ru: 'Страница не найдена — GREEN ECO ENGINEERING', uz: 'Sahifa topilmadi — GREEN ECO ENGINEERING' },
-    description: { ru: 'Страница не найдена. Откройте каталог из 109 видов работ или главную страницу GREEN ECO ENGINEERING — электромонтаж и электролаборатория в Ташкенте.', uz: 'Sahifa topilmadi. 109 ta ish turidan iborat katalogni yoki GREEN ECO ENGINEERING bosh sahifasini oching.' },
+    description: { ru: `Страница не найдена. Откройте каталог из ${SERVICE_COUNT} видов работ или главную страницу GREEN ECO ENGINEERING — электромонтаж и электролаборатория в Ташкенте.`, uz: `Sahifa topilmadi. ${SERVICE_COUNT} ta ish turidan iborat katalogni yoki GREEN ECO ENGINEERING bosh sahifasini oching.` },
     canonical: `${company.baseUrl}404.html`,
     jsonLd: { '@context': 'https://schema.org', '@type': 'WebPage', name: 'Страница не найдена' },
+    noindex: true,
     body
   })
 }

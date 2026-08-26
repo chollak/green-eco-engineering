@@ -50,11 +50,11 @@ function header (base) {
 
   return `<header class="site-header" data-header>
   <div class="site-header__inner">
-    <a class="brand" href="${base}index.html">
+    <a class="brand" href="${base || './'}">
       <span class="brand__mark">${BRAND_MARK}</span>
       <span class="brand__name">GREEN ECO ENGINEERING</span>
     </a>
-    <nav class="site-nav" aria-label="Основная навигация">${nav}</nav>
+    <nav class="site-nav" data-aria-ru="Основная навигация" data-aria-uz="Asosiy navigatsiya" aria-label="Основная навигация">${nav}</nav>
     <div class="header-actions">
       <a class="header-phone" href="tel:${company.phone}">${company.phoneDisplay}</a>
       <div class="lang" role="group" aria-label="Язык сайта">
@@ -71,7 +71,8 @@ function header (base) {
 </header>
 
 <div class="mode-bar">
-  <div class="mode-bar__inner">
+  <div class="mode-bar__inner" tabindex="0" role="group"
+    data-aria-ru="Режим работы компании" data-aria-uz="Kompaniya ish tartibi" aria-label="Режим работы компании">
     <span class="mode-bar__item"><span class="mode-bar__mark"></span><span ${bi({ ru: 'Ташкент', uz: 'Toshkent' })}>Ташкент</span></span>
     <span class="mode-bar__item">UTC+5<span data-clock></span></span>
     <span class="mode-bar__item" ${bi({ ru: 'Электролаборатория: приём заявок', uz: 'Elektrolaboratoriya: ariza qabul qilinadi' })}>Электролаборатория: приём заявок</span>
@@ -81,7 +82,7 @@ function header (base) {
 </div>
 
 <div class="nav-panel" id="nav-panel" data-nav-panel>
-  <nav class="nav-panel__list" aria-label="Мобильная навигация">
+  <nav class="nav-panel__list" data-aria-ru="Мобильная навигация" data-aria-uz="Mobil navigatsiya" aria-label="Мобильная навигация">
     ${NAV.map(item => `<a class="nav-panel__link" href="${base}${item.href}">
       <span ${bi(item.text)}>${esc(item.text.ru)}</span>${icon('arrowRight', { size: 18, cls: 'icon' })}
     </a>`).join('')}
@@ -121,7 +122,7 @@ function footer (base) {
           <div class="plate__row"><dt class="plate__key">E-mail</dt><dd class="plate__val"><a href="mailto:${company.email}">${company.email}</a></dd></div>
         </dl>
       </div>
-      ${catalogLinks.slice(0, catalogLinks.length)}
+      ${catalogLinks}
     </div>
     <div class="footer-bottom">
       ${el('span', 'label', {
@@ -136,7 +137,7 @@ function footer (base) {
 
 /* ------------------------------------------------------ каркас страницы */
 
-export function page ({ base = '', title, description, canonical, jsonLd, body, bodyClass = '' }) {
+export function page ({ base = '', title, description, canonical, jsonLd, body, bodyClass = '', noindex = false }) {
   const ld = Array.isArray(jsonLd) ? jsonLd : [jsonLd]
 
   return `<!DOCTYPE html>
@@ -148,7 +149,7 @@ export function page ({ base = '', title, description, canonical, jsonLd, body, 
 <script>document.documentElement.className='js'</script>
 <title>${esc(title.ru)}</title>
 <meta name="description" content="${esc(description.ru)}">
-<meta name="robots" content="index, follow">
+<meta name="robots" content="${noindex ? 'noindex, follow' : 'index, follow'}">
 <link rel="canonical" href="${canonical}">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="GREEN ECO ENGINEERING">
@@ -158,6 +159,9 @@ export function page ({ base = '', title, description, canonical, jsonLd, body, 
 <meta property="og:locale" content="ru_UZ">
 <meta property="og:locale:alternate" content="uz_UZ">
 <meta property="og:image" content="${company.baseUrl}assets/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="GREEN ECO ENGINEERING — электромонтаж, пусконаладка и электролаборатория">
 <meta name="twitter:card" content="summary_large_image">
 ${ld.map(item => `<script type="application/ld+json">${JSON.stringify(item)}</script>`).join('\n')}
 <link rel="icon" type="image/svg+xml" href="${base}assets/favicon.svg">
@@ -171,7 +175,7 @@ ${ld.map(item => `<script type="application/ld+json">${JSON.stringify(item)}</sc
   data-desc-ru="${esc(description.ru)}" data-desc-uz="${esc(description.uz)}">
 <a class="skip-link" href="#main" ${bi({ ru: 'Перейти к содержанию', uz: 'Kontentga o‘tish' })}>Перейти к содержанию</a>
 ${header(base)}
-<main id="main">
+<main id="main" tabindex="-1">
 ${body}
 </main>
 ${footer(base)}

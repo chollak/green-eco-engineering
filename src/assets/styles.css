@@ -5,7 +5,7 @@
    формате «параметр : значение». Фотографий нет — это жанр, а не дефицит.
 
    Цвет ограничен почти до монохрома. Единственный насыщенный акцент —
-   PE-зелёный по IEC 60446 (защитный проводник), жёлто-чёрная штриховка —
+   PE-зелёный по IEC 60445 (защитный проводник), жёлто-чёрная штриховка —
    сигнальная маркировка по ГОСТ 12.4.026-2015, красный — только пожарная
    безопасность и аварии, синий — нормативные ссылки.
    ========================================================================= */
@@ -31,7 +31,7 @@
   --ink-faint: #5C706C;
 
   /* Отраслевой цветовой код */
-  --pe: #0B5E30;            /* IEC 60446 — защитный проводник. Белый текст: 7.90:1 */
+  --pe: #0B5E30;            /* IEC 60445 — защитный проводник. Белый текст: 7.90:1 */
   --live: #12A150;          /* только графика, 3.24:1 — как текст не использовать */
   --signal: #FFD100;        /* ГОСТ 12.4.026 «предупреждение» — только заливка */
   --caution-ink: #8A5A00;   /* текстовый вариант предупреждения, 5.93:1 */
@@ -40,7 +40,7 @@
 
   --selection: rgba(18, 161, 80, .18);
 
-  /* Легенда IEC 60446 — только образцы 12×12 в подписи схемы */
+  /* Легенда IEC 60445 — только образцы 12×12 в подписи схемы */
   --phase-l1: #7A4A22;
   --phase-l2: #131B19;
   --phase-l3: #8A9794;
@@ -123,7 +123,6 @@
   --ring: inset 0 0 0 1px var(--line-strong);
   --ring-soft: inset 0 0 0 1px var(--line);
   --ring-accent: inset 0 0 0 1px var(--accent);
-  --focus-ring: 0 0 0 2px var(--bg), 0 0 0 4px var(--accent);
 
   --grid-fine: 32px;
   --grid-coarse: 128px;
@@ -150,6 +149,7 @@
 /* Утопленный фон: --ink-faint даёт на нём 4.80:1 — поднимаем подписи на muted */
 .surface--sunk {
   --bg: var(--paper-2);
+  --bg-sunk: #EAEEED;
   --fg-faint: var(--ink-muted);
   background: var(--paper-2);
 }
@@ -177,11 +177,13 @@ body {
   text-rendering: optimizeLegibility;
 }
 
+/* Ось wght НЕ пиннится на body: font-variation-settings наследуется и перебивает
+   font-weight у потомков — кнопки и заголовки теряли жирность */
 @supports (font-variation-settings: 'wdth' 84) {
-  body { font-variation-settings: 'wght' 400, 'wdth' 100; }
+  body { font-variation-settings: 'wdth' 100; }
 }
 
-body.is-locked { overflow: hidden; }
+html.is-locked, html.is-locked body { overflow: hidden; }
 
 h1, h2, h3, h4 {
   margin: 0;
@@ -236,12 +238,13 @@ svg { display: block; }
 
 .skip-link:focus {
   left: 0;
-  box-shadow: var(--focus-ring);
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
 }
 
 :focus-visible {
-  outline: none;
-  box-shadow: var(--focus-ring);
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
   border-radius: var(--r-chip);
 }
 
@@ -263,14 +266,14 @@ svg { display: block; }
   font-size: clamp(2rem, .9rem + 5.5vw, 5.5rem);
   line-height: .98;
   letter-spacing: -.015em;
-  max-width: 15ch;
+  max-width: 20ch;
 }
 
 .t-h2 {
   font-size: clamp(1.5rem, 1.05rem + 1.9vw, 2.5rem);
   line-height: 1.1;
   letter-spacing: -.01em;
-  max-width: 18ch;
+  max-width: 24ch;
 }
 
 .t-h3 { font-size: 1.25rem; line-height: 1.25; }
@@ -349,7 +352,6 @@ svg { display: block; }
 }
 
 .is-in .rubric__line, .rubric.is-in .rubric__line { transform: scaleX(1); }
-.rubric__line { will-change: transform; }
 
 .stack { display: flex; flex-direction: column; align-items: stretch; }
 .stack > .btn, .stack > .chip { align-self: flex-start; }
@@ -460,7 +462,7 @@ svg { display: block; }
 
 .site-nav { display: none; }
 
-@media (min-width: 1080px) {
+@media (min-width: 1200px) {
   .site-nav { display: flex; align-items: center; gap: var(--s5); }
 }
 
@@ -521,7 +523,7 @@ svg { display: block; }
   border-radius: var(--r-chip);
 }
 
-@media (min-width: 1080px) { .nav-toggle { display: none; } }
+@media (min-width: 1200px) { .nav-toggle { display: none; } }
 
 .nav-toggle .icon-close, .nav-toggle.is-open .icon-menu { display: none; }
 .nav-toggle.is-open .icon-close { display: block; }
@@ -594,7 +596,7 @@ svg { display: block; }
 
 .nav-panel.is-open { display: block; }
 
-@media (min-width: 1080px) { .nav-panel.is-open { display: none; } }
+@media (min-width: 1200px) { .nav-panel.is-open { display: none; } }
 
 .nav-panel__list { width: var(--page); margin-inline: auto; }
 
@@ -785,7 +787,7 @@ svg { display: block; }
   transition: background-color var(--d-1) var(--ease-productive), box-shadow var(--d-1) var(--ease-productive);
 }
 
-.dir-tile:hover { background: var(--paper-2); box-shadow: var(--ring-accent); }
+.dir-tile:hover { background: var(--bg-sunk); box-shadow: var(--ring-accent); }
 
 /* Крупный номер — сплошной цвет. Контурные цифры через -webkit-text-stroke
    на среднем мониторе исчезают и оставляют дыру */
@@ -829,7 +831,7 @@ svg { display: block; }
   transition: background-color var(--d-1) var(--ease-productive), padding-left var(--d-2) var(--ease-productive);
 }
 
-.dir-row:hover { background: var(--paper-2); padding-left: calc(var(--s4) + 8px); }
+.dir-row:hover { background: var(--bg-sunk); padding-left: calc(var(--s4) + 8px); }
 .dir-row__num { font-family: var(--font-mono); font-size: .8125rem; color: var(--fg-faint); transition: color var(--d-1) var(--ease-productive); }
 .dir-row:hover .dir-row__num { color: var(--accent); }
 .dir-row__count { font-family: var(--font-mono); font-size: .8125rem; color: var(--fg-faint); }
@@ -865,7 +867,7 @@ svg { display: block; }
   transition: background-color var(--d-1) var(--ease-productive);
 }
 
-.sld-list__item:hover { background: var(--paper-2); }
+.sld-list__item:hover { background: var(--bg-sunk); }
 .sld-list__stage { font-family: var(--font-mono); font-size: .6875rem; letter-spacing: .06em; text-transform: uppercase; color: var(--fg-faint); flex-shrink: 0; min-width: 8ch; }
 
 /* На узких экранах метка этапа уходит над содержимым: «РАСПРЕДЕЛЕНИЕ» + текст в строку не влезают */
@@ -915,7 +917,7 @@ svg { display: block; }
   transition: background-color var(--d-1) var(--ease-productive);
 }
 
-.bar-row:hover { background: var(--paper-2); }
+.bar-row:hover { background: var(--bg-sunk); }
 .bar-row__num, .bar-row__count { font-family: var(--font-mono); font-size: .8125rem; color: var(--fg-faint); }
 .bar-row__count { text-align: right; }
 .bar-row__body { display: grid; gap: 4px; min-width: 0; }
@@ -1015,7 +1017,7 @@ svg { display: block; }
 
 .faq__q::-webkit-details-marker { display: none; }
 .faq__q::marker { content: ''; }
-.faq__q:hover { background: var(--paper-2); }
+.faq__q:hover { background: var(--bg-sunk); }
 .faq__q .icon { flex-shrink: 0; color: var(--fg-faint); transition: transform var(--d-2) var(--ease-productive); }
 .faq__item[open] .faq__q .icon { transform: rotate(180deg); }
 .faq__item[open] .faq__q { color: var(--accent); }
@@ -1023,10 +1025,18 @@ svg { display: block; }
 
 /* ------------------------------------------------------------- ФОРМА */
 
-.form { display: grid; gap: var(--s4); }
+.form { display: grid; gap: var(--s4); container-type: inline-size; container-name: form; }
 .form__row { display: grid; gap: var(--s4); grid-template-columns: minmax(0, 1fr); }
 
-@media (min-width: 640px) { .form__row { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+/* Две колонки — по ширине САМОЙ формы, а не вьюпорта: форма живёт
+   в колонке 340px и на «широком» экране получала бы поля по 160px */
+@container form (min-width: 460px) {
+  .form__row { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+
+@supports not (container-type: inline-size) {
+  @media (min-width: 1024px) { .form__row { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+}
 
 .field { display: grid; gap: var(--s1); }
 .field__label { font-family: var(--font-mono); font-size: .6875rem; letter-spacing: .06em; text-transform: uppercase; color: var(--fg-faint); }
@@ -1066,11 +1076,12 @@ svg { display: block; }
 
 .footer-grid { display: grid; gap: var(--s6); grid-template-columns: minmax(0, 1fr); }
 
-@media (min-width: 900px) { .footer-grid { grid-template-columns: minmax(0, 1.4fr) repeat(2, minmax(0, 1fr)); } }
+@media (min-width: 900px) { .footer-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (min-width: 1200px) { .footer-grid { grid-template-columns: minmax(0, 1.6fr) repeat(4, minmax(0, 1fr)); gap: var(--s5); } }
 
 .footer-col__title { margin-bottom: var(--s3); }
-.footer-col li + li { margin-top: var(--s2); }
-.footer-col a { font-size: .9375rem; color: var(--ink-muted); }
+.footer-col li + li { margin-top: 2px; }
+.footer-col a { display: inline-block; padding-block: 6px; font-size: .9375rem; color: var(--ink-muted); }
 .footer-col a:hover { color: var(--pe); }
 
 .footer-bottom {
@@ -1095,6 +1106,7 @@ svg { display: block; }
 @media (min-width: 1024px) {
   .doc-layout { display: grid; grid-template-columns: minmax(0, 1fr) 340px; gap: var(--s6); align-items: start; }
   .doc-layout__aside { position: sticky; top: calc(var(--header-h) + var(--modebar-h) + var(--s4)); }
+  .contact-layout { display: grid; grid-template-columns: minmax(0, 6fr) minmax(0, 5fr); gap: var(--s6); align-items: start; }
 }
 
 .nav-sections { display: grid; gap: 1px; background: var(--line-strong); box-shadow: var(--ring); grid-template-columns: minmax(0, 1fr); }
@@ -1113,7 +1125,7 @@ svg { display: block; }
   transition: background-color var(--d-1) var(--ease-productive);
 }
 
-.nav-sections a:hover { background: var(--paper-2); }
+.nav-sections a:hover { background: var(--bg-sunk); }
 .nav-sections a[aria-current="page"] { background: var(--accent); color: #fff; }
 .nav-sections .n { font-family: var(--font-mono); font-size: .75rem; color: var(--fg-faint); }
 .nav-sections a[aria-current="page"] .n { color: rgba(255, 255, 255, .7); }
@@ -1175,6 +1187,11 @@ svg { display: block; }
     --hairline: #C6D2D0;
     --rule: #698C85;
     --ink-faint: #41534F;
+  }
+  .band--ink {
+    --band-line: #4A5654;
+    --band-line-strong: #6E827D;
+    --band-fg-faint: #B4C2BE;
   }
 }
 

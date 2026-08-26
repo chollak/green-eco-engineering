@@ -1,11 +1,11 @@
-// services/index.html — все 109 видов работ одним документом с фильтром.
+// services/index.html — весь каталог работ одним документом с фильтром.
 // Каталог сгруппирован по кластерам жизненного цикла объекта, а не по алфавиту:
 // алфавитный список читается как выгрузка из прайса.
 
 import { company } from '../data/company.mjs'
 import { sections } from '../data/sections.mjs'
 import { groups, groupSections } from '../data/groups.mjs'
-import { enrichment } from '../data/enrichment.mjs'
+import { SECTION_COUNT, SERVICE_COUNT, pluralKind } from '../data/counts.mjs'
 import { page, esc, bi, el } from './layout.mjs'
 import { icon } from './icons.mjs'
 import { rubric, contactBand } from './components.mjs'
@@ -23,7 +23,7 @@ function groupBlock (group) {
       <span ${bi(service)}>${esc(service.ru)}</span>
     </li>`).join('')}</ol>
     <span class="dir-tile__foot">
-      <span class="label" ${bi({ ru: `${section.services.length} видов работ`, uz: `${section.services.length} ta ish turi` })}>${section.services.length} видов работ</span>
+      <span class="label" ${bi({ ru: `${section.services.length} видов работ`, uz: `${section.services.length} ta ish turi` })}>${section.services.length} ${pluralKind(section.services.length)} работ</span>
       <a href="${section.slug}.html" class="label" ${bi({ ru: 'К разделу', uz: 'Bo‘limga' })}>К разделу</a>
     </span>
   </article>`).join('')
@@ -45,11 +45,18 @@ function groupBlock (group) {
 }
 
 export function catalogPage () {
-  const total = sections.reduce((sum, section) => sum + section.services.length, 0)
-
   const tags = groups.map(group =>
     `<button type="button" class="filter__tag" data-filter="${group.id}" aria-pressed="false" ${bi(group.title)}>${esc(group.title.ru)}</button>`
   ).join('')
+
+  const breadcrumbs = {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      { '@type': 'ListItem', position: 1, name: 'Главная', item: company.baseUrl },
+      { '@type': 'ListItem', position: 2, name: 'Услуги', item: `${company.baseUrl}services/index.html` }
+    ]
+  }
 
   const jsonLd = {
     '@context': 'https://schema.org',
@@ -71,7 +78,7 @@ export function catalogPage () {
       <span class="crumbs__sep" aria-hidden="true">/</span>
       <span ${bi({ ru: 'Услуги', uz: 'Xizmatlar' })}>Услуги</span>
     </nav>
-    <p class="stamp">${esc(company.legalName.ru)} · ИНН ${company.taxId} · ${sections.length} РАЗДЕЛОВ · ${total} ВИДОВ РАБОТ</p>
+    <p class="stamp">${esc(company.legalName.ru)} · ИНН ${company.taxId} · ${SECTION_COUNT} РАЗДЕЛОВ · ${SERVICE_COUNT} ВИДОВ РАБОТ</p>
     ${el('h1', 't-display', { ru: 'Каталог работ', uz: 'Ishlar katalogi' }, 'id="cat-h"')}
     ${el('p', 't-lead', {
       ru: 'Полный перечень: 17 направлений, 109 видов работ. Сгруппированы по этапу жизни объекта — от ввода питания до эксплуатации, а не по алфавиту.',
@@ -102,11 +109,11 @@ ${contactBand('../')}`
       uz: 'Ishlar katalogi: 17 yo‘nalish, 109 tur — GREEN ECO ENGINEERING'
     },
     description: {
-      ru: 'Полный каталог электромонтажных работ: монтаж и высоковольтные работы, пусконаладка, электролаборатория, пожарная безопасность, автоматика, обслуживание. 109 видов работ.',
+      ru: `Полный каталог электромонтажных работ: монтаж и высоковольтные работы, пусконаладка, электролаборатория, пожарная безопасность, автоматика, обслуживание. ${SERVICE_COUNT} ${pluralKind(SERVICE_COUNT)} работ.`,
       uz: 'Elektromontaj ishlarining to‘liq katalogi: montaj va yuqori kuchlanish, ishga tushirish, elektrolaboratoriya, yong‘in xavfsizligi, avtomatika, xizmat ko‘rsatish. 109 ta ish turi.'
     },
     canonical: `${company.baseUrl}services/index.html`,
-    jsonLd,
+    jsonLd: [jsonLd, breadcrumbs],
     body
   })
 }
