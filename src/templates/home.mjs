@@ -463,8 +463,8 @@ export function homePage () {
   return page({
     base: '',
     title: {
-      ru: 'Электромонтаж, пусконаладка и электролаборатория в Ташкенте — GREEN ECO ENGINEERING',
-      uz: 'Toshkentda elektromontaj, ishga tushirish va elektrolaboratoriya — GREEN ECO ENGINEERING'
+      ru: 'Электромонтаж и электролаборатория в Ташкенте — GREEN ECO',
+      uz: 'Toshkentda elektromontaj va elektrolaboratoriya — GREEN ECO'
     },
     description: {
       ru: 'Электромонтажные и пусконаладочные работы, испытания собственной электролабораторией, пожарная безопасность и автоматика на промышленных объектах Узбекистана. Смета за 1–2 дня.',

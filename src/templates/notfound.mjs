@@ -30,14 +30,15 @@ export function notFoundPage () {
         <span ${bi({ ru: 'Каталог работ', uz: 'Ishlar katalogi' })}>Каталог работ</span>
       </a>
     </div>
-    <nav class="nav-sections" aria-label="Разделы">${links}</nav>
+    ${el('h2', 't-h3', { ru: 'Основные направления работ', uz: 'Asosiy ish yoʻnalishlari' }, 'id="nf-h"')}
+    <nav class="nav-sections" aria-labelledby="nf-h">${links}</nav>
   </div>
 </section>`
 
   return page({
     base: '',
     title: { ru: 'Страница не найдена — GREEN ECO ENGINEERING', uz: 'Sahifa topilmadi — GREEN ECO ENGINEERING' },
-    description: { ru: 'Страница не найдена. Перейдите в каталог работ или на главную страницу.', uz: 'Sahifa topilmadi. Ishlar katalogiga yoki bosh sahifaga oʻting.' },
+    description: { ru: 'Страница не найдена. Откройте каталог из 109 видов работ или главную страницу GREEN ECO ENGINEERING — электромонтаж и электролаборатория в Ташкенте.', uz: 'Sahifa topilmadi. 109 ta ish turidan iborat katalogni yoki GREEN ECO ENGINEERING bosh sahifasini oching.' },
     canonical: `${company.baseUrl}404.html`,
     jsonLd: { '@context': 'https://schema.org', '@type': 'WebPage', name: 'Страница не найдена' },
     body

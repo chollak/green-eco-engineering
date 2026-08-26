@@ -80,8 +80,8 @@ export function catalogPage () {
     <div class="filter">
       <label class="visually-hidden" for="filter-input" ${bi({ ru: 'Поиск по каталогу', uz: 'Katalog boʻyicha qidiruv' })}>Поиск по каталогу</label>
       <input type="search" id="filter-input" class="filter__input" data-filter-input
-        data-ph-ru="Поиск: заземление, ВРУ, тепловизор…" data-ph-uz="Qidiruv: yerga ulash, VRU, teplovizor…"
-        placeholder="Поиск: заземление, ВРУ, тепловизор…">
+        data-ph-ru="Поиск: заземление, ВРУ, муфта, УЗО…" data-ph-uz="Qidiruv: yerga ulash, VRU, mufta, UZO…"
+        placeholder="Поиск: заземление, ВРУ, муфта, УЗО…">
       <div class="filter__tags">
         <button type="button" class="filter__tag" data-filter="all" aria-pressed="true" ${bi({ ru: 'Все направления', uz: 'Barcha yoʻnalishlar' })}>Все направления</button>
         ${tags}

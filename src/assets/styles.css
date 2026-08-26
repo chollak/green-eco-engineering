@@ -199,7 +199,7 @@ svg { display: block; }
 
 /* Числа в моно — единственный способ получить табличные цифры:
    в сборке IBM Plex Sans от Google Fonts фичи tnum нет */
-.mono, .label, .data {
+.label, .data {
   font-family: var(--font-mono);
   font-weight: 400;
   word-break: normal;
@@ -349,6 +349,7 @@ svg { display: block; }
 }
 
 .is-in .rubric__line, .rubric.is-in .rubric__line { transform: scaleX(1); }
+.rubric__line { will-change: transform; }
 
 .stack { display: flex; flex-direction: column; align-items: stretch; }
 .stack > .btn, .stack > .chip { align-self: flex-start; }
@@ -656,8 +657,6 @@ svg { display: block; }
 }
 
 .chip--info { color: var(--info); box-shadow: inset 0 0 0 1px currentColor; }
-.chip--caution { color: var(--caution-ink); box-shadow: inset 0 0 0 1px currentColor; }
-.chip--danger { color: var(--danger); box-shadow: inset 0 0 0 1px currentColor; }
 .chip-row { display: flex; flex-wrap: wrap; gap: var(--s2); }
 
 .hazard-rule { height: 6px; background: var(--hazard); }
@@ -743,8 +742,6 @@ svg { display: block; }
 
 @media (min-width: 768px) { .plate--2 { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
 @media (min-width: 1024px) { .plate--3 { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
-
-.plate--pe { box-shadow: inset 0 0 0 1px var(--accent); background: var(--accent); }
 
 .stat-strip {
   display: grid;
@@ -903,7 +900,6 @@ svg { display: block; }
 }
 
 .stage__num { font-family: var(--font-mono); font-size: .6875rem; letter-spacing: .09em; color: var(--accent); }
-.stage__doc { margin-top: auto; padding-top: var(--s3); box-shadow: 0 -1px 0 var(--line); font-size: .9375rem; color: var(--fg-muted); }
 
 /* ------------------------------------------------- РАСПРЕДЕЛЕНИЕ УСЛУГ */
 
@@ -966,6 +962,8 @@ svg { display: block; }
 
 /* ----------------------------------------------------- ТАБЛИЦЫ, СПИСКИ */
 
+/* Таблица ждёт данных приборного парка электролаборатории (company.labCertificate,
+   перечень приборов). Пока их нет — блок не отрисовывается, стили лежат готовыми. */
 .table-wrap { overflow-x: auto; box-shadow: var(--ring); }
 
 .table { width: 100%; border-collapse: collapse; font-size: .9375rem; background: var(--bg-raised); }
@@ -990,7 +988,6 @@ svg { display: block; }
 .svc-item:hover { padding-left: 8px; }
 .svc-item__code { font-family: var(--font-mono); font-size: .8125rem; color: var(--fg-faint); transition: color var(--d-1) var(--ease-productive); }
 .svc-item:hover .svc-item__code { color: var(--accent); }
-.svc-item__abbr { display: block; font-size: .8125rem; color: var(--fg-faint); margin-top: 2px; }
 
 .check-list { display: grid; gap: var(--s3); }
 .check-list li { display: grid; grid-template-columns: 20px minmax(0, 1fr); gap: var(--s3); align-items: start; }
@@ -1093,8 +1090,6 @@ svg { display: block; }
 .crumbs a:hover { color: var(--pe); }
 .crumbs__sep { color: var(--rule); }
 
-.doc-head { display: grid; gap: var(--s4); }
-
 .aside-card { box-shadow: var(--ring); background: var(--bg-raised); padding: var(--s5) var(--s4); display: grid; gap: var(--s4); }
 
 @media (min-width: 1024px) {
@@ -1160,10 +1155,18 @@ svg { display: block; }
 
 /* Разные типы блоков появляются по-разному: одинаковый fade на всём —
    узнаваемый маркер шаблонной генерации */
-.reveal { opacity: 0; transition: opacity var(--d-3) var(--ease-expressive), transform var(--d-3) var(--ease-expressive); transition-delay: calc(var(--i, 0) * 55ms); }
-.reveal--up { transform: translateY(10px); }
-.reveal--fade { transform: none; }
-.reveal.is-in { opacity: 1; transform: none; }
+/* Скрываем блоки только при работающем JS: иначе без скрипта страница будет пустой */
+.js [data-reveal] {
+  opacity: 0;
+  transform: translateY(10px);
+  transition: opacity var(--d-3) var(--ease-expressive), transform var(--d-3) var(--ease-expressive);
+  transition-delay: calc(var(--i, 0) * 55ms);
+}
+
+/* Разные типы блоков появляются по-разному: списки и таблицы — без сдвига,
+   иначе одинаковый fade на всём читается как шаблон */
+.js [data-reveal="fade"] { transform: none; }
+.js [data-reveal].is-in { opacity: 1; transform: none; }
 
 /* --------------------------------------------------- КОНТРАСТ И ПЕЧАТЬ */
 
@@ -1193,7 +1196,7 @@ svg { display: block; }
     transition-duration: 1ms !important;
     scroll-behavior: auto !important;
   }
-  .reveal { opacity: 1; transform: none; }
+  .js [data-reveal] { opacity: 1; transform: none; }
   .rubric__line { transform: scaleX(1); }
 }
 
@@ -1210,8 +1213,8 @@ svg { display: block; }
   .section, .section--major, .section--hero { padding-block: 12pt; }
   .panel, .plate, .commit, .dir-tiles, .stage-track { box-shadow: none; border: 1px solid #888; gap: 0; }
   .panel > *, .plate__row, .commit__item, .dir-tile, .stage { border-bottom: 1px solid #bbb; }
-  .reveal { opacity: 1 !important; transform: none !important; }
+  .js [data-reveal] { opacity: 1 !important; transform: none !important; }
   a[href^="http"]::after { content: ' (' attr(href) ')'; font-size: 9pt; color: #555; }
-  .plate, .req-block, .faq__item { break-inside: avoid; }
+  .plate, .faq__item { break-inside: avoid; }
   h1, h2, h3 { break-after: avoid; }
 }

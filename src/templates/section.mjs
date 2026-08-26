@@ -8,6 +8,13 @@ import { page, esc, bi, el } from './layout.mjs'
 import { icon } from './icons.mjs'
 import { plate, rubric, faqList, faqJsonLd, contactBand } from './components.mjs'
 
+const BRAND = ' — GREEN ECO ENGINEERING'
+
+/** Бренд в title дописывается, только если строка остаётся в пределах выдачи (~65 знаков). */
+function withBrand (title) {
+  return title.length + BRAND.length <= 65 ? title + BRAND : title
+}
+
 /** Шифр вида работ: 03.04 — раздел и порядковый номер. Инженер цитирует его в заявке. */
 const code = (section, index) => `${section.num}.${String(index + 1).padStart(2, '0')}`
 
@@ -168,8 +175,8 @@ ${contactBand('../')}`
   return page({
     base: '../',
     title: {
-      ru: `${extra ? extra.seoTitle.ru : section.title.ru} — GREEN ECO ENGINEERING`,
-      uz: `${extra ? extra.seoTitle.uz : section.title.uz} — GREEN ECO ENGINEERING`
+      ru: withBrand(extra ? extra.seoTitle.ru : section.title.ru),
+      uz: withBrand(extra ? extra.seoTitle.uz : section.title.uz)
     },
     description: extra ? extra.seoDescription : section.short,
     canonical: `${company.baseUrl}services/${section.slug}.html`,

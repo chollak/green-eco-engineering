@@ -96,7 +96,7 @@ function header (base) {
 
 function footer (base) {
   const catalogLinks = groups.map(group => `<div class="footer-col">
-    ${el('h3', 'label footer-col__title', group.title)}
+    ${el('h2', 'label footer-col__title', group.title)}
     <ul>${group.slugs.map(slug => {
       const section = sections.find(item => item.slug === slug)
       return `<li><a href="${base}services/${section.slug}.html" ${bi(section.title)}>${esc(section.title.ru)}</a></li>`
@@ -145,6 +145,7 @@ export function page ({ base = '', title, description, canonical, jsonLd, body, 
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="color-scheme" content="light">
+<script>document.documentElement.className='js'</script>
 <title>${esc(title.ru)}</title>
 <meta name="description" content="${esc(description.ru)}">
 <meta name="robots" content="index, follow">

@@ -105,18 +105,18 @@
 
     if (!toggle || !panel) return
 
-    var lastFocused = null
-
     function close () {
+      // Фокус возвращаем на кнопку только если он был внутри панели —
+      // иначе перехватим фокус у того, кто просто прокрутил страницу
+      var focusWasInside = panel.contains(document.activeElement)
       panel.classList.remove('is-open')
       toggle.classList.remove('is-open')
       toggle.setAttribute('aria-expanded', 'false')
       document.body.classList.remove('is-locked')
-      if (lastFocused) lastFocused.focus()
+      if (focusWasInside) toggle.focus()
     }
 
     function open () {
-      lastFocused = document.activeElement
       panel.classList.add('is-open')
       toggle.classList.add('is-open')
       toggle.setAttribute('aria-expanded', 'true')
