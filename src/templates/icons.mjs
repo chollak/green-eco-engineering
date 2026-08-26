@@ -1,5 +1,12 @@
-// Иконки в едином стиле: stroke, viewBox 24×24. Заливка задаётся через CSS.
+// Иконки: единый viewBox 24×24, обводка currentColor, без заливки.
+//
+// Текстовые стрелки и галочки (→ ✓ ✔) намеренно НЕ используются в разметке:
+// проверено, что этих глифов нет ни у Inter, ни у IBM Plex, ни у Onest —
+// браузер подставляет системный шрифт другой ширины и веса, и символ «выпадает»
+// из типографики. Поэтому любая стрелка и галочка на сайте — это SVG отсюда.
+
 const paths = {
+  /* --- направления услуг --- */
   plug: '<path d="M9 2v6M15 2v6M6 8h12v3a6 6 0 0 1-12 0V8zM12 17v5"/>',
   sliders: '<path d="M4 21v-7M4 10V3M12 21v-9M12 8V3M20 21v-5M20 12V3M1 14h6M9 8h6M17 16h6"/>',
   gauge: '<path d="M3.5 18a10 10 0 1 1 17 0M12 14l4.5-4.5"/><circle cx="12" cy="14" r="1.6"/>',
@@ -17,15 +24,41 @@ const paths = {
   chart: '<path d="M3 21h18M7 21V11M12 21V4M17 21v-6"/>',
   users: '<path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/>',
   doc: '<path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6M9 13h6M9 17h4"/>',
+
+  /* --- контакты и служебное --- */
   phone: '<path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L8.1 9.9a16 16 0 0 0 6 6l1.3-1.2a2 2 0 0 1 2.1-.5c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2z"/>',
   mail: '<rect x="2" y="4" width="20" height="16" rx="2"/><path d="M22 6l-10 7L2 6"/>',
   pin: '<path d="M21 10c0 7-9 13-9 13S3 17 3 10a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/>',
   id: '<rect x="2" y="5" width="20" height="14" rx="2"/><path d="M7 15h4M7 11h6M16 9h3M16 13h3"/>',
   clock: '<circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/>',
-  bolt: '<path d="M13 2L4.5 13.5H11l-1 8.5 8.5-11.5H12l1-8.5z"/>'
+  telegram: '<path d="M21.5 4.5L2.8 11.3a.5.5 0 0 0 .05.95l4.6 1.3 1.8 5.4a.5.5 0 0 0 .87.16l2.4-2.7 4.7 3.5a.5.5 0 0 0 .8-.3l3.1-14.4a.5.5 0 0 0-.66-.6z"/><path d="M7.45 13.55L18 6.9l-8.2 8.1"/>',
+
+  /* --- интерфейс: стрелки, галочки, состояния --- */
+  arrowRight: '<path d="M5 12h14M13 6l6 6-6 6"/>',
+  arrowUpRight: '<path d="M7 17L17 7M8 7h9v9"/>',
+  arrowDown: '<path d="M12 5v14M6 13l6 6 6-6"/>',
+  check: '<path d="M20 6L9 17l-5-5"/>',
+  chevronDown: '<path d="M6 9l6 6 6-6"/>',
+  plus: '<path d="M12 5v14M5 12h14"/>',
+  minus: '<path d="M5 12h14"/>',
+  bolt: '<path d="M13 2L4.5 13.5H11l-1 8.5 8.5-11.5H12l1-8.5z"/>',
+  menu: '<path d="M3 6h18M3 12h18M3 18h18"/>',
+  close: '<path d="M18 6L6 18M6 6l12 12"/>'
 }
 
-export function icon (name, cls) {
-  const body = paths[name] || paths.bolt
-  return `<svg class="${cls || ''}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">${body}</svg>`
+/**
+ * @param {string} name  ключ из paths
+ * @param {object} [opt] { cls, size, width } — класс, размер в px, толщина обводки
+ */
+export function icon (name, opt = {}) {
+  const body = paths[name]
+  if (!body) throw new Error(`Иконка '${name}' не найдена`)
+
+  const cls = opt.cls ? ` class="${opt.cls}"` : ''
+  const size = opt.size ? ` width="${opt.size}" height="${opt.size}"` : ''
+  const width = opt.width || 1.6
+
+  return `<svg${cls}${size} viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="${width}" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">${body}</svg>`
 }
+
+export const iconNames = Object.keys(paths)
