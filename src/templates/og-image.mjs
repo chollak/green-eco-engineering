@@ -2,6 +2,7 @@
 // скриншотом 1200×630 (npm-зависимостей и внешних сервисов не требует).
 
 import { company } from '../data/company.mjs'
+import { SECTION_COUNT, SERVICE_COUNT } from '../data/counts.mjs'
 
 export function ogImagePage () {
   return `<!DOCTYPE html>
@@ -41,8 +42,8 @@ export function ogImagePage () {
   <div class="stamp">${company.legalName.ru} · ИНН ${company.taxId} · Ташкент · с ${company.registered}</div>
   <h1>Электромонтаж, пусконаладка и <span class="accent">электролаборатория</span></h1>
   <div class="commit">
-    <div><div class="k">Направлений</div><div class="v">17</div></div>
-    <div><div class="k">Видов работ</div><div class="v">109</div></div>
+    <div><div class="k">Направлений</div><div class="v">${SECTION_COUNT}</div></div>
+    <div><div class="k">Видов работ</div><div class="v">${SERVICE_COUNT}</div></div>
     <div><div class="k">Класс напряжения</div><div class="v">до 110 кВ</div></div>
     <div><div class="k">Аварийная служба</div><div class="v">24/7</div></div>
   </div>

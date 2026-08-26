@@ -3,7 +3,7 @@
 import { company, passport, standards } from '../data/company.mjs'
 import { sections } from '../data/sections.mjs'
 import { content } from '../data/content.mjs'
-import { esc, bi, el, reveal } from './layout.mjs'
+import { esc, bi, el } from './layout.mjs'
 import { icon } from './icons.mjs'
 
 /** Шильдик «параметр : значение» — настоящий <dl>, его читает скринридер. */
@@ -122,7 +122,7 @@ export function contactBand (base = '') {
     { key: { ru: 'ИНН / STIR', uz: 'STIR' }, value: { ru: company.taxId, uz: company.taxId } }
   ]
 
-  return `<section class="section section--major band band--ink" id="contact" aria-labelledby="contact-h">
+  return `<section class="section section--major band--ink" id="contact" aria-labelledby="contact-h">
   <div class="page">
     <div class="contact-layout">
       <div class="stack">
@@ -200,5 +200,3 @@ export function sldLegend () {
     </span>`).join('')}
   </div>`
 }
-
-export { reveal }

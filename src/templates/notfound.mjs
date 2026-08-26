@@ -19,8 +19,8 @@ export function notFoundPage () {
     <p class="stamp">HTTP 404 · ${esc(company.legalName.ru)} · ИНН ${company.taxId}</p>
     ${el('h1', 't-display', { ru: 'Страница не найдена', uz: 'Sahifa topilmadi' })}
     ${el('p', 't-lead', {
-      ru: 'Адрес устарел или содержит опечатку. Ниже — основные разделы; полный каталог из 109 видов работ открывается одной ссылкой.',
-      uz: 'Manzil eskirgan yoki xato yozilgan. Quyida — asosiy bo‘limlar; 109 ta ish turidan iborat to‘liq katalog bitta havola bilan ochiladi.'
+      ru: `Адрес устарел или содержит опечатку. Ниже — основные разделы; полный каталог из ${SERVICE_COUNT} ${pluralKind(SERVICE_COUNT)} работ открывается одной ссылкой.`,
+      uz: `Manzil eskirgan yoki xato yozilgan. Quyida — asosiy bo‘limlar; ${SERVICE_COUNT} ta ish turidan iborat to‘liq katalog bitta havola bilan ochiladi.`
     })}
     <div class="hero__actions">
       <a class="btn btn--primary" href="${company.baseUrl}">

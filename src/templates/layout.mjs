@@ -26,11 +26,6 @@ export function el (tag, cls, pair, extra = '') {
   return `<${tag}${c} ${bi(pair)}${e}>${esc(pair.ru)}</${tag}>`
 }
 
-/** Блок появления при скролле: тип задаёт характер, --i — ступень задержки. */
-export function reveal (kind = 'up', step = 0) {
-  return `data-reveal class="reveal reveal--${kind}"${step ? ` style="--i:${step}"` : ''}`
-}
-
 /* ------------------------------------------------------------- шапка */
 
 const NAV = [
@@ -129,7 +124,7 @@ function footer (base) {
         ru: `${company.legalName.ru} · ИНН ${company.taxId} · ${company.addressShort.ru}`,
         uz: `${company.legalName.uz} · STIR ${company.taxId} · ${company.addressShort.uz}`
       })}
-      <span class="label">© ${new Date().getFullYear()} · <a href="${base}sitemap.xml">sitemap</a></span>
+      <span class="label">© ${new Date().getFullYear()} · <a href="${base}sitemap.xml" style="text-decoration:underline">sitemap.xml</a></span>
     </div>
   </div>
 </footer>`
@@ -151,6 +146,7 @@ export function page ({ base = '', title, description, canonical, jsonLd, body, 
 <meta name="description" content="${esc(description.ru)}">
 <meta name="robots" content="${noindex ? 'noindex, follow' : 'index, follow'}">
 <link rel="canonical" href="${canonical}">
+<link rel="sitemap" type="application/xml" href="${company.baseUrl}sitemap.xml">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="GREEN ECO ENGINEERING">
 <meta property="og:title" content="${esc(title.ru)}">

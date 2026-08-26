@@ -1066,12 +1066,6 @@ svg { display: block; }
 
 /* ---------------------------------------------------------- ПОЛОСА, ФУТЕР */
 
-/* Full-bleed без 100vw: тот даёт горизонтальный скролл при видимом скроллбаре */
-.band {
-  box-shadow: 0 0 0 100vmax var(--bg);
-  clip-path: inset(0 -100vmax);
-}
-
 .site-footer { background: var(--paper-2); padding-block: var(--py-minor) var(--s5); box-shadow: 0 -1px 0 var(--rule); }
 
 .footer-grid { display: grid; gap: var(--s6); grid-template-columns: minmax(0, 1fr); }
@@ -1226,7 +1220,6 @@ svg { display: block; }
   .site-header, .mode-bar, .nav-panel, .nav-toggle, .lang, .filter, .form, .site-nav, .sld__svg, .draft-grid::before, .skip-link { display: none !important; }
   .band--ink { background: #fff !important; color: #111 !important; box-shadow: none !important; clip-path: none !important; }
   .band--ink * { color: #111 !important; }
-  .band { box-shadow: none !important; clip-path: none !important; }
   .section, .section--major, .section--hero { padding-block: 12pt; }
   .panel, .plate, .commit, .dir-tiles, .stage-track { box-shadow: none; border: 1px solid #888; gap: 0; }
   .panel > *, .plate__row, .commit__item, .dir-tile, .stage { border-bottom: 1px solid #bbb; }

@@ -111,17 +111,17 @@ function catalogSection () {
     <div class="layout-b">
       <div>
         ${rubric({ ru: `Каталог · ${SERVICE_COUNT} ${pluralKind(SERVICE_COUNT)} работ`, uz: `Katalog · ${SERVICE_COUNT} ta ish turi` })}
-        ${el('h2', 't-h2', { ru: '17 направлений под одним договором', uz: 'Bitta shartnoma ostida 17 yo‘nalish' }, 'id="catalog-h"')}
+        ${el('h2', 't-h2', { ru: `${SECTION_COUNT} направлений под одним договором`, uz: `Bitta shartnoma ostida ${SECTION_COUNT} yo‘nalish` }, 'id="catalog-h"')}
       </div>
       ${el('p', 't-lead', {
-        ru: 'Шесть основных направлений — крупным планом. Остальные одиннадцать закрывают смежные системы объекта: от кранового хозяйства до слаботочки.',
-        uz: 'Oltita asosiy yo‘nalish — yiriklashtirilgan. Qolgan o‘n bittasi obyektning qo‘shni tizimlarini qamrab oladi: kran xo‘jaligidan kuchsiz tok tizimlarigacha.'
+        ru: `Основные направления — крупным планом (${KEY_COUNT}). Остальные ${REST_COUNT} закрывают смежные системы объекта: от кранового хозяйства до слаботочки.`,
+        uz: `Asosiy yo‘nalishlar — yiriklashtirilgan (${KEY_COUNT} ta). Qolgan ${REST_COUNT} tasi obyektning qo‘shni tizimlarini qamrab oladi: kran xo‘jaligidan kuchsiz tok tizimlarigacha.`
       })}
     </div>
     <div class="dir-tiles" data-reveal>${tiles}</div>
     <div class="dir-rows" data-reveal>${rows}</div>
     <p><a class="btn btn--ghost" href="services/index.html">
-      <span ${bi({ ru: 'Все 109 видов работ одним списком', uz: 'Barcha 109 ta ish turi bitta ro‘yxatda' })}>Все 109 видов работ одним списком</span>
+      <span ${bi({ ru: `Все ${SERVICE_COUNT} ${pluralKind(SERVICE_COUNT)} работ одним списком`, uz: `Barcha ${SERVICE_COUNT} ta ish turi bitta ro‘yxatda` })}>Все ${SERVICE_COUNT} ${pluralKind(SERVICE_COUNT)} работ одним списком</span>
       ${icon('arrowRight', { size: 18, cls: 'icon icon--arrow' })}
     </a></p>
   </div>
@@ -163,8 +163,8 @@ function chainSection () {
         ${rubric({ ru: 'Цепь энергии', uz: 'Energiya zanjiri' })}
         ${el('h2', 't-h2', { ru: 'От ввода 10 кВ до протокола испытаний', uz: '10 kV kirishdan sinov bayonnomasigacha' }, 'id="chain-h"')}
         ${el('p', 't-lead', {
-          ru: 'Направления перечислены не по алфавиту, а по движению энергии на объекте. Порядок сам объясняет, зачем подрядчику 17 направлений.',
-          uz: 'Yo‘nalishlar alifbo bo‘yicha emas, obyektdagi energiya harakati bo‘yicha tartiblangan. Tartibning o‘zi pudratchiga nega 17 yo‘nalish kerakligini tushuntiradi.'
+          ru: `Направления перечислены не по алфавиту, а по движению энергии на объекте. Порядок сам объясняет, зачем подрядчику ${SECTION_COUNT} направлений.`,
+          uz: `Yo‘nalishlar alifbo bo‘yicha emas, obyektdagi energiya harakati bo‘yicha tartiblangan. Tartibning o‘zi pudratchiga nega ${SECTION_COUNT} yo‘nalish kerakligini tushuntiradi.`
         })}
       </div>
       <div class="sld" data-reveal>

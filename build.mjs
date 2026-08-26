@@ -36,7 +36,10 @@ async function contentDate () {
       return 0
     }
   }))
-  return new Date(Math.max(...times)).toISOString().slice(0, 10)
+
+  const newest = Math.max(...times)
+  // Если ни один файл не прочитался, дата сборки честнее, чем 1970 год
+  return new Date(newest || Date.now()).toISOString().slice(0, 10)
 }
 
 async function copyAssets () {
@@ -108,6 +111,6 @@ async function build () {
 }
 
 build().catch(error => {
-  console.error('Сборка не удалась:', error.message)
+  console.error('Сборка не удалась:', error.stack || error.message)
   process.exitCode = 1
 })

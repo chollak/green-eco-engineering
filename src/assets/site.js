@@ -302,7 +302,7 @@
     var groupsList = $$('[data-group]')
     var activeGroup = 'all'
 
-    function apply () {
+    function apply (silent) {
       var query = (input ? input.value : '').trim().toLowerCase()
       var shown = 0
 
@@ -321,7 +321,7 @@
         shown += visibleInGroup
       })
 
-      if (counter) {
+      if (counter && !silent) {
         var lang = storedLang()
         counter.textContent = shown
           ? (lang === 'uz' ? shown + ' ta yoʻnalish koʻrsatildi' : 'Показано направлений: ' + shown)
@@ -329,8 +329,17 @@
       }
     }
 
-    if (input) input.addEventListener('input', apply)
-    onLangChange(apply)
+    // Счётчик живёт в aria-live: без паузы скринридер тараторит на каждую букву
+    var announceTimer = null
+
+    function applyDebounced () {
+      apply(true)
+      clearTimeout(announceTimer)
+      announceTimer = setTimeout(function () { apply(false) }, 400)
+    }
+
+    if (input) input.addEventListener('input', applyDebounced)
+    onLangChange(function () { apply(false) })
 
     tags.forEach(function (tag) {
       tag.addEventListener('click', function () {
@@ -338,11 +347,13 @@
         tags.forEach(function (other) {
           other.setAttribute('aria-pressed', other === tag ? 'true' : 'false')
         })
-        apply()
+        apply(false)
       })
     })
 
-    apply()
+    // На загрузке счётчик обязан быть заполнен: живой регион не объявляет
+    // содержимое, существовавшее на момент готовности страницы
+    apply(false)
   }
 
   /* ------------------------------------------------- копирование реквизитов */

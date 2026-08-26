@@ -13,10 +13,6 @@ export const company = {
     ru: 'ООО «GREEN ECO ENGINEERING»',
     uz: '«GREEN ECO ENGINEERING» MChJ'
   },
-  tagline: {
-    ru: 'Электромонтаж · Пусконаладка · Электролаборатория',
-    uz: 'Elektromontaj · Ishga tushirish · Elektrolaboratoriya'
-  },
   taxId: '303724307',
   registered: '14.01.2016',
   registeredIso: '2016-01-14',
@@ -24,7 +20,6 @@ export const company = {
   phone: '+998909183126',
   phoneDisplay: '+998 90 918 31 26',
   email: 'info@greeneco.uz',
-  telegram: null,            // ← ссылка вида https://t.me/... если есть
   address: {
     ru: 'Ташкент, Янгихаётский район, МФЙ Файзли, ул. Райхон, 107',
     uz: 'Toshkent, Yangihayot tumani, Fayzli MFY, Rayhon ko‘chasi, 107'
@@ -36,10 +31,6 @@ export const company = {
   workHours: {
     ru: 'Пн–Сб, 09:00–18:00',
     uz: 'Du–Sha, 09:00–18:00'
-  },
-  emergency: {
-    ru: 'Аварийные выезды — круглосуточно',
-    uz: 'Avariya chaqiruvlari — kunu tun'
   },
   geography: {
     ru: 'Ташкент и Ташкентская область, выезд по регионам',
