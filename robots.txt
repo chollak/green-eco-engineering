@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://chollak.github.io/green-eco-engineering/sitemap.xml
