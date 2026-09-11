@@ -81,7 +81,7 @@ export function sectionPage (section) {
     url: `${company.baseUrl}services/${section.slug}.html`,
     areaServed: [
       { '@type': 'City', name: 'Ташкент' },
-      { '@type': 'AdministrativeArea', name: 'Ташкентская область' }
+      { '@type': 'Country', name: 'Узбекистан' }
     ],
     provider: { '@id': `${company.baseUrl}#organization` },
     hasOfferCatalog: {

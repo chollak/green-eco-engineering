@@ -445,7 +445,7 @@ export function homePage () {
     }],
     areaServed: [
       { '@type': 'City', name: 'Ташкент' },
-      { '@type': 'AdministrativeArea', name: 'Ташкентская область' }
+      { '@type': 'Country', name: 'Узбекистан' }
     ],
     hasOfferCatalog: {
       '@type': 'OfferCatalog',

@@ -33,8 +33,8 @@ export const company = {
     uz: 'Du–Sha, 09:00–18:00'
   },
   geography: {
-    ru: 'Ташкент и Ташкентская область, выезд по регионам',
-    uz: 'Toshkent va Toshkent viloyati, hududlarga chiqamiz'
+    ru: 'Узбекистан — выезд во все регионы',
+    uz: 'O‘zbekiston — barcha hududlarga chiqamiz'
   },
 
   // Заполняется клиентом — до этого соответствующие блоки скрыты
@@ -48,7 +48,8 @@ export const company = {
  * Проверено исследованием рынка: в B2B-подряде первый экран должен давать
  * сроки и объём документации, а не лозунг.
  *
- * ВНИМАНИЕ: сроки и гарантия — предмет подтверждения клиентом.
+ * ВНИМАНИЕ: сроки выезда и сметы — предмет подтверждения клиентом.
+ * Гарантия 12 месяцев подтверждена клиентом 11.09.2026.
  */
 export const commitments = [
   {
@@ -61,7 +62,7 @@ export const commitments = [
   },
   {
     label: { ru: 'Гарантия на работы', uz: 'Ishlarga kafolat' },
-    value: { ru: '24 месяца', uz: '24 oy' }
+    value: { ru: '12 месяцев', uz: '12 oy' }
   },
   {
     label: { ru: 'Сдача объекта', uz: 'Obyektni topshirish' },
@@ -79,7 +80,7 @@ export const passport = [
   { key: { ru: 'Класс напряжения', uz: 'Kuchlanish sinfi' }, value: { ru: 'до 110 кВ', uz: '110 kV gacha' } },
   { key: { ru: 'Группы по электробезопасности', uz: 'Elektr xavfsizligi guruhlari' }, value: { ru: 'до V включительно', uz: 'V gacha' } },
   { key: { ru: 'Аварийная служба', uz: 'Avariya xizmati' }, value: { ru: '24/7', uz: '24/7' } },
-  { key: { ru: 'География работ', uz: 'Ish geografiyasi' }, value: { ru: 'Ташкент и область', uz: 'Toshkent va viloyat' } }
+  { key: { ru: 'География работ', uz: 'Ish geografiyasi' }, value: { ru: 'Узбекистан', uz: 'O‘zbekiston' } }
 ]
 
 /** Нормативная база — чипы. Инженер читает это как допуск к разговору. */
