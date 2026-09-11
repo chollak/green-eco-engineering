@@ -1250,8 +1250,24 @@ svg { display: block; }
   display: block;
   width: 100%;
   height: auto;
-  aspect-ratio: 16 / 9;
+  /* Пропорции кадра приходят из photo-sizes.mjs: кадр показывается таким,
+     каким пришёл, а не обрезается под общий формат. 16/9 — запасной вариант. */
+  aspect-ratio: var(--photo-ratio, 16 / 9);
   object-fit: cover;
+}
+
+/* Дополнительные кадры раздела: контактный лист под главным снимком.
+   align-items: start — кадры разных пропорций не растягиваются друг под друга. */
+.photo-grid {
+  display: grid;
+  gap: var(--grid-gap);
+  grid-template-columns: minmax(0, 1fr);
+  align-items: start;
+  margin-top: var(--grid-gap);
+}
+
+@media (min-width: 900px) {
+  .photo-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 }
 
 .photo__cap {

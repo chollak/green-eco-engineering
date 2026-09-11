@@ -3,44 +3,74 @@
 import { company, passport, standards } from '../data/company.mjs'
 import { sections } from '../data/sections.mjs'
 import { content } from '../data/content.mjs'
-import { photos } from '../data/photos.mjs'
+import { photos, photoName } from '../data/photos.mjs'
+import { photoSizes } from '../data/photo-sizes.mjs'
 import { esc, bi, el } from './layout.mjs'
 import { icon } from './icons.mjs'
 
 /**
- * Фотография-иллюстрация к разделу.
+ * Фотографии-иллюстрации к разделу: первый кадр во всю ширину, остальные сеткой.
  *
  * Подпись прямо называет кадр иллюстрацией: это типовое оборудование, а не
  * объект компании. Как только появятся снимки с реальных объектов, здесь
  * меняется только файл и текст подписи.
  *
+ * Пропорции и srcset берутся из photo-sizes.mjs — манифеста, который пишет
+ * scripts-photos.mjs. Поэтому в разметку не попадает ширина, которой нет
+ * на диске, а кадр показывается в своих пропорциях и не прыгает при загрузке.
+ *
  * Возвращает пустую строку, если фото для раздела нет — блок-оболочка
  * без данных не отрисовывается.
  */
-export function photoFigure (slug, num, base = '') {
-  const photo = photos[slug]
-  if (!photo) return ''
 
-  const path = `${base}assets/photos/${slug}`
-  // Контейнер .page — min(100% - 2*gutter, 1320px), sizes должен это повторять,
-  // иначе браузер возьмёт слишком мелкий файл и растянет его
-  const sizes = '(min-width: 1400px) 1320px, (min-width: 640px) 92vw, 100vw'
+// Контейнер .page — min(100% - 2*gutter, 1320px), sizes должен это повторять,
+// иначе браузер возьмёт слишком мелкий файл и растянет его
+const LEAD_SIZES = '(min-width: 1400px) 1320px, (min-width: 640px) 92vw, 100vw'
+// В сетке кадр занимает половину контейнера за вычетом зазора
+const GRID_SIZES = '(min-width: 1400px) 652px, (min-width: 900px) 46vw, (min-width: 640px) 92vw, 100vw'
 
-  return `<figure class="photo" data-reveal="fade">
+function photoFrame (slug, index, photo, label, base, sizes) {
+  const name = photoName(slug, index)
+  const size = photoSizes[name]
+  if (!size) {
+    throw new Error(`Нет обработанного файла для ${name}: положите src/photos/${name}.jpg и запустите node scripts-photos.mjs`)
+  }
+
+  const path = `${base}assets/photos/${name}`
+  const srcset = ext => size.outputs.map(width => `${path}-${width}.${ext} ${width}w`).join(', ')
+  const largest = size.outputs[size.outputs.length - 1]
+
+  return `<figure class="photo" data-reveal="fade" style="--photo-ratio: ${size.width} / ${size.height}">
   <picture>
-    <source type="image/webp" sizes="${sizes}"
-      srcset="${path}-800.webp 800w, ${path}-1600.webp 1600w">
-    <img src="${path}-1600.jpg" sizes="${sizes}"
-      srcset="${path}-800.jpg 800w, ${path}-1600.jpg 1600w"
-      width="1600" height="900" loading="lazy" decoding="async"
+    <source type="image/webp" sizes="${sizes}" srcset="${srcset('webp')}">
+    <img src="${path}-${largest}.jpg" sizes="${sizes}" srcset="${srcset('jpg')}"
+      width="${size.width}" height="${size.height}" loading="lazy" decoding="async"
       data-aria-ru="${esc(photo.alt.ru)}" data-aria-uz="${esc(photo.alt.uz)}"
       alt="${esc(photo.alt.ru)}">
   </picture>
   <figcaption class="photo__cap">
-    <span class="label" ${bi({ ru: `Иллюстрация · раздел ${num}`, uz: `Illyustratsiya · ${num}-bo‘lim` })}>Иллюстрация · раздел ${num}</span>
+    <span class="label" ${bi(label)}>${esc(label.ru)}</span>
     ${el('span', 't-small', photo.caption)}
   </figcaption>
 </figure>`
+}
+
+export function photoFigure (slug, num, base = '', { lead = false } = {}) {
+  const list = photos[slug]
+  if (!list || !list.length) return ''
+
+  const leadLabel = { ru: `Иллюстрация · раздел ${num}`, uz: `Illyustratsiya · ${num}-bo‘lim` }
+  const restLabel = { ru: 'Иллюстрация', uz: 'Illyustratsiya' }
+  const first = photoFrame(slug, 0, list[0], leadLabel, base, LEAD_SIZES)
+  const rest = lead ? [] : list.slice(1)
+
+  if (!rest.length) return first
+
+  const grid = rest
+    .map((photo, offset) => photoFrame(slug, offset + 1, photo, restLabel, base, GRID_SIZES))
+    .join('\n')
+
+  return `${first}\n<div class="photo-grid">${grid}</div>`
 }
 
 /** Шильдик «параметр : значение» — настоящий <dl>, его читает скринридер. */

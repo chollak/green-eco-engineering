@@ -482,7 +482,7 @@ export function homePage () {
     jsonLd: [organization, faqJsonLd(FAQ_ITEMS)],
     body: [
       hero(),
-      `<section class="section" style="padding-block:0"><div class="page">${photoFigure('elektromontazhnye-raboty', '01')}</div></section>`,
+      `<section class="section" style="padding-block:0"><div class="page">${photoFigure('elektromontazhnye-raboty', '01', '', { lead: true })}</div></section>`,
       passportSection(),
       catalogSection(),
       chainSection(),

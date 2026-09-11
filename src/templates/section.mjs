@@ -71,6 +71,7 @@ function neighbours (current) {
 export function sectionPage (section) {
   const extra = enrichment[section.slug]
   const faqItems = extra ? extra.faq : []
+  const photoBlock = photoFigure(section.slug, section.num, '../')
 
   const service = {
     '@context': 'https://schema.org',
@@ -131,8 +132,8 @@ export function sectionPage (section) {
   </div>
 </section>
 
-${photoFigure(section.slug, section.num, '../') ? `<section class="section" style="padding-block:0">
-  <div class="page">${photoFigure(section.slug, section.num, '../')}</div>
+${photoBlock ? `<section class="section" style="padding-block:0">
+  <div class="page">${photoBlock}</div>
 </section>` : ''}
 
 <section class="section section--major" aria-labelledby="scope-h">
